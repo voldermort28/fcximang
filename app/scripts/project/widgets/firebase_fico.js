@@ -17,10 +17,12 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
+firebase.auth().useDeviceLanguage();
+
 // const database = firebase.database();
 const db = firebase.firestore();
 const providerFB = new firebase.auth.FacebookAuthProvider();
-
+const providerG = new firebase.auth.GoogleAuthProvider();
 class FirebaseFico {
   // eslint-disable-next-line class-methods-use-this
   getAllUser(cb) {
@@ -49,6 +51,20 @@ class FirebaseFico {
       });
       cb(res);
     })
+      .catch((error) => {
+        console.log(error);
+        cb(error);
+      });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  getMaxLucky(cb) {
+    db.collection('users').orderBy('lucky', 'desc').limit(1).get()
+      .then((querySnapshot) => {
+        if (querySnapshot.docs[0]) {
+          cb(querySnapshot.docs[0].data().lucky);
+        }
+      })
       .catch((error) => {
         console.log(error);
         cb(error);
@@ -86,9 +102,30 @@ class FirebaseFico {
 
   // eslint-disable-next-line class-methods-use-this
   updateUser(user, cb) {
-    db.collection('users').doc(user.id).set(user)
+    // console.log(user);
+    db.collection('users').doc(user.id).set(user, { merge: true })
       .then(() => {
         cb();
+      })
+      .catch((error) => {
+        cb(error);
+      });
+    // db.collection('users').doc(user.id).get()
+    //   .then((doc) => {
+    //     console.log(doc.data());
+    //     cb(doc);
+    //   })
+    //   .catch((error) => {
+    //     cb(error);
+    //   });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  addBill(bill, cb) {
+    console.log(bill);
+    db.collection('bill').add(bill)
+      .then((docRef) => {
+        cb(docRef);
       })
       .catch((error) => {
         cb(error);
@@ -99,6 +136,7 @@ class FirebaseFico {
     const $this = this;
     let _p;
     if (provider === 'facebook') _p = providerFB;
+    if (provider === 'google') _p = providerG;
 
     firebase.auth().signInWithPopup(_p).then((result) => {
       const token = result.credential.accessToken;
@@ -116,6 +154,38 @@ class FirebaseFico {
     // const { email } = error;
     // // The firebase.auth.AuthCredential type that was used.
     // const { credential } = error;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  signUpPhone(data, cb) {
+    db.collection('users').add(data)
+      .then((docRef) => {
+        cb(docRef);
+      })
+      .catch((error) => {
+        cb(error);
+      });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  signInPhone(data, cb) {
+    console.log(data);
+    const res = [];
+    let query = db.collection('users').where('phone', '==', data.phone);
+    query = query.where('password', '==', data.password);
+
+    query.get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const user = doc.data();
+        user.id = doc.id;
+        res.push(user);
+      });
+      cb(res);
+    })
+      .catch((error) => {
+        console.log(error);
+        cb(error);
+      });
   }
 
   init() {

@@ -1,0 +1,14 @@
+.form-group
+  label Họ tên: {{fullname}}
+.form-group
+  label Số điện thoại: {{phone}}
+.form-group
+  label Số CNMD: {{cmnd}}
+.form-group.form-cmd
+  label Mã số may mắn của bạn là
+  | {{#if lucky}}
+  button#btnLucky.btn.btn-primary(disabled) {{lucky}}
+  | {{else}}
+  button#btnLucky.btn.btn-primary(disabled) Mã may mắn
+  | {{/if}}
+  a.btn.btn-secondary(href='./update.html', title='Cập nhật thông tin mua hàng') Cập nhật thông tin mua hàng

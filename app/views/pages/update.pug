@@ -14,19 +14,42 @@ block container
         img.d-md-none(data-thp-lazy='', src=require('../../assets/images/ajax-loader.gif'), data-source=require('../../assets/images/upload/top-banner-1--m.png'))
         img.d-none.d-md-block(data-thp-lazy='', src=require('../../assets/images/ajax-loader.gif'), data-source=require('../../assets/images/upload/top-banner-1--d.png'))
   .container
-    .thankyou-area
-      h2.heading Cám ơn bạn đã tham gia chương trình
-      .template(data-template='true')
+    .update-area
+      h2.heading Chúc mừng bạn đã đăng nhập thành công
+      form.form.form-bill(method='POST',data-thp-validation='',onsubmit='return false;')
+        .form-heading Nhập thông tin ngay để nhận mã rút thăm trúng thưởng!
         .form-group
-          label Họ tên: {{fullname}}
+          label Địa chỉ công trình
+            sup *
+          .form-control
+            .select
+              select#city(name='city', title='Tỉnh/Thành', required, data-error-require='* bắt buộc')
+                option(value="",selected,disabled) Tỉnh/Thành
+            .select
+              select#district(name='district', title='Quận/Huyện', required, data-error-require='* bắt buộc')
+                option(value="",selected,disabled) Quận/Huyện
+            .input
+              input(type='text',name='street', placeholder='Gõ địa chỉ: Số nhà = Đường - Phường/Xã', required, data-error-require='* bắt buộc')
         .form-group
-          label Số điện thoại: {{phone}}
+          label Tên cửa hàng
+            sup *
+          .form-control
+            .input.small
+              input(type='text',name='shop', placeholder='............', required, data-error-require='* bắt buộc')
+            label SĐT cửa hàng
+            .input.small
+              input(type='text',name='shopphone', placeholder='............',pattern="[+0-9]*", data-error-pattern='Chỉ nhập số và +',)
         .form-group
-          label Số CNMD: {{cmnd}}
+          label Số lượng bao Supreme Power
+          .form-control
+            .input
+              input(type='number',name='total', placeholder='............', min=1,required, data-error-require='* bắt buộc', pattern='[0-9]*', data-error-pattern='Chỉ nhập số')
+            .note Bạn vui lòng mua ít nhất 200 bao xi măng Supreme Power để nhận được mã dự thưởng bốc thăm may mắn.
         .form-group.form-cmd
-          label Mã số may mắn của bạn là
-          button#btnLucky.btn.btn-primary(disabled) Mã tự động
-          button#btnBill.btn.btn-secondary Cập nhật thông tin mua hàng
+          label &nbsp;
+          .form-control
+            button#btnLucky.btn.btn-primary(type='button',disabled) Mã tự động
+            button#btnBill.btn.btn-secondary(type='submit') Lưu & Để sau
   .container
     .video-streaming
       .d-md-flex.justify-content-between.align-content-center

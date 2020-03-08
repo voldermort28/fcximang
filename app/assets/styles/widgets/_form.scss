@@ -37,6 +37,12 @@
 
 #modalSignIn,
 #modalSignUp {
+
+  &.shown {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .thp-modal__body {
     padding: 0;
     background: none;
@@ -54,7 +60,7 @@
     .btn {
       
       .fa {
-        margin-right: 20px;
+        margin-right: 15px;
         width: 30px;
         height: 30px;
         line-height: 30px;
@@ -100,6 +106,11 @@
           padding: 6px 10px;
         }
       }
+    }
+
+    .invalid + .error {
+      padding: 3px 0;
+      font-size: rem(12px);
     }
   }
 }

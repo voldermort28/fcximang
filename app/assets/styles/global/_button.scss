@@ -21,6 +21,11 @@
       color: $white;
       text-decoration: none;
     }
+
+    &[disabled] {
+      cursor: not-allowed;
+      opacity: .5;
+    }
   }
 
   &-secondary {
