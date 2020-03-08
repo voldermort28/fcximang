@@ -1,0 +1,39 @@
+#modalSignUp.thp-modal
+  .thp-modal__instance
+    .thp-modal__body
+      form.form(method='POST',action='',data-thp-validation='')
+        .form-group
+          label Số điện thoại
+            sup *
+          input.form-control.input-phone(type="tel", placeholder="Số điện thoại",required)
+        .form-group
+          label Họ & tên
+            sup *
+          input.form-control.input-fullname(type="text", placeholder="Họ & tên",required)
+        .form-group
+          label Số CMND
+            sup *
+          input.form-control.input-cmnd(type="text", placeholder="Số CMND",required)
+        .form-group
+          label Mật khẩu
+            sup *
+          input.form-control.input-password(type="password", placeholder="Mật khẩu",required)
+        .form-group
+          label Xác nhận mật khẩu
+            sup *
+          input.form-control.input-verifypassword(type="password", placeholder="Xác nhận mật khẩu",required)
+        .form-group.form-cmd
+          button#btnSignUp.btn.btn-secondary(title='Đăng ký') Đăng ký
+          hr
+        .form-group.form-cmd
+          button.btn.btn-ico--text.btn-facebook(title='Đăng nhập với Facebook') 
+            span.fa.fa-facebook
+            span Đăng nhập với Facebook
+        .form-group.form-cmd
+          button.btn.btn-ico--text.btn-google(title='Đăng nhập với Google') 
+            span.fa.fa-google
+            span Đăng nhập với Google
+        .form-group.form-cmd
+          button.btn.btn-ico--text.btn-zalo(title='Đăng nhập với Zalo') 
+            span.fa.fa-zalo
+            span Đăng nhập với Zalo

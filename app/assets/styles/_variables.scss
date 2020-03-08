@@ -1,0 +1,58 @@
+// color
+$primary-color: #00b7f0;
+$secondary-color: #0075b5;
+
+$primary-color-alt: #0082dd;
+$secondary-color-alt: #ffa400;
+
+$grey-color: #dad5d6;
+$grey-color-light: #f5f5f5;
+$grey-color-dark: #495561;
+
+$text-color-primary: #151515;
+$text-color-secondary: #293037;
+
+$white: #fff;
+$black: #000;
+
+$success-color: #dc8c06;
+$error-color: #f20128;
+
+// grid
+$screen-xxs: 320px;
+$screen-xs: 414px;
+$screen-sm: 576px;
+$screen-md: 768px;
+$screen-lg: 992px;
+$screen-xlg: 1200px;
+$screen-xxlg: 1280px;
+
+$screen-xs-up: ($screen-sm - 1px);
+$screen-sm-up: ($screen-md - 1px);
+$screen-md-up: ($screen-lg - 1px);
+$screen-hd-up: ($screen-xxlg - 1px);
+
+//typo
+$font-size-base: 16px;
+$font-thin: 100;
+$font-light: 300;
+$font-normal: 400;
+$font-medium: 500;
+$font-semi-bold: 600;
+$font-bold: 700;
+$font-extra-bold: 900;
+
+$font-primary: 'SFUEurostile', -apple-system, 'BlinkMacSystemFont', 'Segoe UI',
+  'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol';
+$font-heading: 'Oswald',sans-serif;
+$font-secondary: -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji',
+'Segoe UI Emoji', 'Segoe UI Symbol';
+$font-fontback: sans-serif;
+
+$code-facebook: #0e51a5;
+$code-twitter: #0084b4;
+$code-linkedin: #007AB9;
+$code-instagram: #000000;
+$code-google: #c90505;
+$code-zalo: #4fb5eb;

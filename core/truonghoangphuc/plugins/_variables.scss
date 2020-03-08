@@ -1,0 +1,70 @@
+// Variables
+
+//
+// Color system
+//
+
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+$blue:    #009afe !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #e83e8c !default;
+$red:     #dc3545 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffc107 !default;
+$green:   #28a745 !default;
+$teal:    #69c0ac !default;
+$cyan:    #4faac7 !default;
+
+$primary:       $blue !default;
+$secondary:     $gray-600 !default;
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-100 !default;
+$dark:          $gray-800 !default;
+
+// Define common padding and border radius sizes and more.
+$unit-spacing:                15px;
+$padding:                     10px 15px;
+$border-width:                1px !default;
+$border-color:                $gray-300 !default;
+$border-radius:               .25rem !default;
+
+$box-shadow:                  0 .5rem 1rem rgba($black, .15) !default;
+
+$caret-width:                 5px !default;
+
+$transition-base:             all .3s ease-in-out !default;
+$transition-fade:             opacity .3s linear !default;
+$transition-collapse:         height .5s ease !default;
+
+
+//
+// Screen Breakpoints
+//
+
+$screen-xxs: 320px;
+$screen-xs: 414px;
+$screen-sm: 576px;
+$screen-md: 768px;
+$screen-lg: 992px;
+$screen-xlg: 1200px;
+$screen-xxlg: 1920px;
+
+$screen-xs-up: ($screen-sm - 1px);
+$screen-sm-up: ($screen-md - 1px);
+$screen-md-up: ($screen-lg - 1px);
+$screen-hd-up: ($screen-xxlg - 1px);

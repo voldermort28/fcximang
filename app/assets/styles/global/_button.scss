@@ -1,0 +1,70 @@
+.btn {
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  line-height: 1;
+  font-size: rem(12px);
+  cursor: pointer;
+
+  &:focus,
+  &:hover {
+    text-decoration: none;
+  }
+
+  &-primary {
+    box-shadow: 0px 2px 4px .8px rgba(28, 28, 29, .4);
+    background-color: $error-color;
+    color: $white;
+
+    &:focus,
+    &:hover {
+      color: $white;
+      text-decoration: none;
+    }
+  }
+
+  &-secondary {
+    background-color: $secondary-color-alt;
+    box-shadow: 0px 2px 4px .8px rgba(28, 28, 29, .4);
+    color: $white;
+
+    &:focus,
+    &:hover {
+      color: $white;
+      text-decoration: none;
+    }
+  }
+
+  &-icon {
+    padding: 0;
+  }
+
+  &-facebook {
+    background-color: $code-facebook;
+    color: $white;
+  }
+
+  &-google {
+    background-color: $code-google;
+    color: $white;
+  }
+
+  &-zalo {
+    background-color: $code-zalo;
+    color: $white;
+  }
+}
+
+@include tablet-up {
+
+  .btn {
+    font-size: rem(14px);
+  }
+}
+
+@include desktop-up {
+
+  .btn {
+    font-size: rem(16px);
+  }
+}

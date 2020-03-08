@@ -1,0 +1,21 @@
+mixin input(obj)
+  if (obj.type === "submit" || obj.type === "file")
+    input(type=obj.type, id= obj.id || null, name= obj.name || null, value=obj.value || null)&attributes(obj.attr||attributes)
+  else
+    input(type=obj.type || "text", id= obj.id || null, name= obj.name || null, placeholder= obj.placeholder || null, value=obj.value || "", min=obj.min || null, max=obj.max || null)&attributes(obj.attr||attributes)
+
+mixin button(obj)
+  button(type=obj.type || "button", name=obj.name || obj.title, id=obj.id || null, title=obj.title || null)&attributes(attributes)
+    if block
+      block
+    else
+      != obj.text
+
+mixin checkbox-default(obj)
+  .checkbox(class=obj.classParent || null)&attributes(attributes)
+    input(type='checkbox', name=obj.name || obj.id, id=obj.id || obj.name)
+    label(for=obj.id || obj.name, class=obj.classLabel || null)
+      if block
+        block
+      else
+        != obj.text

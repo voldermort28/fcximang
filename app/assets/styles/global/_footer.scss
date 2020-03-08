@@ -1,0 +1,60 @@
+#footer {
+  background: $primary-color;
+  color: $white;
+  font-size: rem(10px);
+  height: 44px;
+  border-bottom: solid 1px $white;
+
+  .container {
+    height: 100%;
+  }
+
+  .row {
+    height: 100%;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .nav-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    p {
+      margin-right: 4px;
+      white-space: nowrap;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .fa {
+      background: $white;
+      border-radius: 50%;
+      height: 24px;
+      width: 24px;
+      line-height: 24px;
+      text-align: center;
+      color: $primary-color;
+      margin: 0 2px;
+
+      &::before {
+        font-size: rem(14px);
+      }
+    }
+  }
+}
+
+@include tablet-up {
+  #footer {
+    font-size: rem(14px);
+  }
+}

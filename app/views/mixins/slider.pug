@@ -1,0 +1,60 @@
+//- carousel caption
+mixin carousel-caption(item)
+  .carousel-caption
+    unless !item.h1
+      h1 #{item.h1}
+    unless !item.p
+      p #{item.p}
+    unless !item.button
+      p
+        a.btn.btn-lg.btn-primary(href=item.button.url role='button') #{item.button.caption}
+
+//- carousel
+mixin carousel(id,items)
+  .carousel.slide(id='carousel-' + id ,data-ride='carousel')
+    //- Indicators
+    ol.carousel-indicators
+      each item,index in items
+        if(index === 0)
+          li.active(data-target='#carousel-' + id, data-slide-to=index)
+        else
+          li(data-target='#carousel-' + id, data-slide-to=index)
+
+    //- Wrapper for slides
+    .carousel-inner(role='listbox')
+      each item,index in items
+        if(index === 0)
+          .carousel-item.active
+            img(src=item.image alt='')
+            +carousel-caption(item)
+
+        else
+          .carousel-item
+            img(src=item.image alt='')
+            +carousel-caption(item)
+
+    //-  Controls
+    a.carousel-control.carousel-control-prev(href='#carousel-' + id, role='button', data-slide='prev')
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.422 7.406L10.828 12l4.594 4.594L14.016 18l-6-6 6-6z"></path></svg>
+    a.carousel-control.carousel-control-next(href='#carousel-' + id, role='button', data-slide='next')
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.984 6l6 6-6 6-1.406-1.406L13.172 12 8.578 7.406z"></path></svg>
+
+//- thp carousel banner
+mixin thp-carousel-banner(items)
+  ul.thp-carousel__slider(data-thp-carousel,data-thp-carousel-autoinstall)
+    each item in items
+      li(class=item.class)
+        .img-bg.d-md-none
+          +img(item.alt, item.srcM)
+        .img-bg.d-none.d-md-block
+          +img(item.alt, item.srcD)
+        .thp-carousel__content
+          if (item.logo !== undefined && item.logoText !== undefined)
+            +img(item.logoText, item.logo)
+          .text
+            .caption #{item.caption}
+            if item.desc !==undefined
+              .desc #{item.desc}
+            if item.ctaLink !== undefined
+              .cta
+                +link(item.ctaText,item.ctaLink,item.ctaText).btn.btn-border.btn-border--white

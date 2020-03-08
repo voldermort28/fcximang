@@ -1,0 +1,160 @@
+@import '../variables';
+@import '../common';
+
+.thp-carousel {
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+
+  &__slider {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    transition: transform .3s ease, height .2s ease-in;
+
+    // display: block;
+    // &::after {
+    //   display: block;
+    //   clear: both;
+    //   content: "";
+    // }
+
+    li {
+      list-style: none;
+    }
+
+  }
+
+  // &__item {
+  //   // float: left;
+  // }
+
+  &__dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: $padding;
+  }
+
+  &__dot {
+    border: solid $border-width $gray-200;
+    background: $gray-200;
+    border-radius: 50%;
+    font-size: 0;
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    line-height: 1;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: $transition-base;
+
+    &:hover,
+    &:focus {
+      outline: none;
+      background: $gray-400;
+    }
+
+    &.active {
+      background: $primary;
+    }
+
+  }
+
+  &__nav {
+    position: absolute;
+    height: 0;
+    top: 50%;
+    left: 0;
+    right: 0;
+  }
+
+  &__button {
+    border: solid $border-width transparent;
+    background: $white;
+    border-radius: 50%;
+    font-size: 0;
+    width: calc(2 * #{$unit-spacing});
+    height: calc(2 * #{$unit-spacing});
+    padding: 0;
+    line-height: 1;
+    cursor: pointer;
+    transition: $transition-base;
+    position: absolute;
+    outline: none;
+
+    &:hover,
+    &:focus {
+      outline: none;
+      border-color: $primary;
+    }
+
+    &--prev {
+      left: 0;
+      transform: translate3d($unit-spacing, -50%, 0);
+
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        border-top: solid calc(#{$unit-spacing} * .5) transparent;
+        border-bottom: solid calc(#{$unit-spacing} * .5) transparent;
+        border-right: solid calc(#{$unit-spacing} * .5) $gray-900;
+        left: 50%;
+        top: 50%;
+        transform: translate3d(-50%, -50%, 0);
+      }
+
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        border-top: solid calc(#{$unit-spacing} * .5) transparent;
+        border-bottom: solid calc(#{$unit-spacing} * .5) transparent;
+        border-right: solid calc(#{$unit-spacing} * .5) $white;
+        left: 50%;
+        top: 50%;
+        transform: translate3d(calc(-50% + 2px), -50%, 0);
+      }
+
+    }
+
+    &--next {
+      right: 0;
+      transform: translate3d(calc(-1 * #{$unit-spacing}), -50%, 0);
+
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        border-top: solid calc(#{$unit-spacing} * .5) transparent;
+        border-bottom: solid calc(#{$unit-spacing} * .5) transparent;
+        border-left: solid calc(#{$unit-spacing} * .5) $gray-900;
+        left: 50%;
+        top: 50%;
+        transform: translate3d(-50%, -50%, 0);
+      }
+
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        border-top: solid calc(#{$unit-spacing} * .5) transparent;
+        border-bottom: solid calc(#{$unit-spacing} * .5) transparent;
+        border-left: solid calc(#{$unit-spacing} * .5) $white;
+        left: 50%;
+        top: 50%;
+        transform: translate3d(calc(-50% - 2px), -50%, 0);
+      }
+    }
+
+    &.disabled {
+      // cursor: not-allowed;
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+}

@@ -1,0 +1,50 @@
+@import '../variables';
+@import '../common';
+
+.thp-accordion__heading {
+  border: none;
+  appearance: none;
+  background: $primary;
+  color: $white;
+  padding: $padding;
+  border-radius: $border-radius;
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-weight: 700;
+  margin-bottom: $unit-spacing;
+  position: relative;
+  cursor: pointer;
+
+  &[type="button"] {
+    appearance: none;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    outline: none;
+  }
+
+  &::before {
+    content: '';
+    border-left: solid $caret-width transparent;
+    border-right: solid $caret-width transparent;
+    border-top: solid $caret-width $white;
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: $unit-spacing;
+    top: 50%;
+    margin-top: calc(-#{$caret-width});
+    transition: $transition-base;
+  }
+
+  &.active {
+    &::before {
+      transform: rotate(-180deg);
+    }
+  }
+
+}

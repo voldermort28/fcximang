@@ -1,0 +1,14 @@
+@import '../variables';
+
+img {
+
+  &.monitored {
+    opacity: 0;
+    transition: $transition-fade;
+
+    &.shown {
+      opacity: 1;
+    }
+  }
+
+}

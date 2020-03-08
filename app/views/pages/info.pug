@@ -1,0 +1,59 @@
+extends ../layouts/layout
+
+block vars
+  - title = "Fico YTL - Miễn phí xi măng";
+  - keyword = "Fico YTL - Miễn phí xi măng";
+  - description = "Fico YTL - Miễn phí xi măng, xây nhà bền chắc";
+  - menuIndex = 0
+
+block container
+  h1.invisible-title Fico YTL - Miễn phí xi măng, xây nhà bền chắc
+  .container
+    .top-banner
+      a(href='#', title='')
+        img.d-md-none(data-thp-lazy='', src=require('../../assets/images/ajax-loader.gif'), data-source=require('../../assets/images/upload/top-banner-1--m.png'))
+        img.d-none.d-md-block(data-thp-lazy='', src=require('../../assets/images/ajax-loader.gif'), data-source=require('../../assets/images/upload/top-banner-1--d.png'))
+  .container
+    .thankyou-area
+      h2.heading Cám ơn bạn đã tham gia chương trình
+      .template(data-template='true')
+        .form-group
+          label Họ tên: {{fullname}}
+        .form-group
+          label Số điện thoại: {{phone}}
+        .form-group
+          label Số CNMD: {{cmnd}}
+        .form-group.form-cmd
+          label Mã số may mắn của bạn là
+          button#btnLucky.btn.btn-primary(disabled) Mã tự động
+          button#btnBill.btn.btn-secondary Cập nhật thông tin mua hàng
+  .container
+    .video-streaming
+      .d-md-flex.justify-content-between.align-content-center
+        .text-info
+          figure
+            .img
+              img(data-thp-lazy='', src=require('../../assets/images/ajax-loader.gif'), data-source=require('../../assets/images/upload/ico_fico.png'))
+            figcaption Đón xem 
+              br.d-none.d-md-block
+              | livestream 
+              br
+              | rút thăm 
+              br.d-none.d-md-block
+              | trúng thưởng
+              br
+              | tại facebook
+        .video
+          //- .fb-video(data-href='https://www.facebook.com/ficoytl/videos/2354587717936737/', data-width='500', data-show-text='false')
+          a(href='https://www.facebook.com/pg/ficoytl', title='', target='_blank')
+            img.d-md-none(data-thp-lazy='', src=require('../../assets/images/ajax-loader.gif'), data-source=require('../../assets/images/upload/video--m.png'))
+            img.d-none.d-md-block(data-thp-lazy='', src=require('../../assets/images/ajax-loader.gif'), data-source=require('../../assets/images/upload/video--d.png'))
+  .container
+    .bottom-banner
+      a(href='#', title='')
+        img.d-md-none(data-thp-lazy='', src=require('../../assets/images/ajax-loader.gif'), data-source=require('../../assets/images/upload/bottom-banner-1--m.png'))
+        img.d-none.d-md-block(data-thp-lazy='', src=require('../../assets/images/ajax-loader.gif'), data-source=require('../../assets/images/upload/bottom-banner-1--d.png'))
+      a(href='#', title='')
+        img.d-md-none(data-thp-lazy='', src=require('../../assets/images/ajax-loader.gif'), data-source=require('../../assets/images/upload/bottom-banner-2--m.png'))
+        img.d-none.d-md-block(data-thp-lazy='', src=require('../../assets/images/ajax-loader.gif'), data-source=require('../../assets/images/upload/bottom-banner-2--d.png'))
+      

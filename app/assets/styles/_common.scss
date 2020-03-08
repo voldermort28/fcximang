@@ -1,0 +1,108 @@
+html {
+  font-size: 16px;
+}
+
+html,
+body {
+  font-family: $font-fontback;
+  line-height: 1.2;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+
+  &:active,
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: $primary-color;
+
+  &:hover,
+  &:focus {
+    color: $secondary-color-alt;
+  }
+}
+
+.main {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: $font-heading;
+    padding: 0;
+  }
+}
+
+.invisible-title {
+  visibility: hidden;
+  position: absolute;
+  top: -1000px;
+  left: 0;
+  opacity: 0;
+}
+
+.fa {
+
+  &-linkedin,
+  &-linkedin-square {
+    color: $code-linkedin;
+  }
+
+  &-instagram {
+    color: $code-instagram;
+  }
+
+  &-facebook,
+  &-facebook-square {
+    color: $code-facebook;
+  }
+}
+
+.light {
+  font-weight: $font-light;
+}
+
+b,
+strong,
+.strong {
+  font-weight: 700;
+}
+
+.text-italic {
+  font-style: italic;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.thp-modal--open {
+  overflow: hidden !important;
+}
+
+@include desktop-down {
+
+}
+
+@include desktop-up {
+
+}
+
+@include xlg-desktop-up {
+
+}

@@ -1,0 +1,232 @@
+#header {
+  height: 60px;
+  width: 100%;
+  left: 0;
+  top: 0;
+  position: relative;
+  z-index: 1000;
+  transition: background .3s linear 0.3s;
+  background: $primary-color;
+  color: $white;
+  padding: 0;
+  border-top: solid 16px $white;
+}
+
+.header {
+
+  &__top {
+    height: 44px;
+    width: 100%;
+    padding: 0;
+  }
+
+  &__logo {
+    height: 56px;
+    position: relative;
+    top: -10px;
+
+    img {
+      max-height: 100%;
+    }
+  }
+
+  &__navigation {
+    
+    &.thp-dropdown__menu {
+      margin: 0;
+      border: none;
+      left: -15px;
+      right: -15px;
+      background: $primary-color;
+      border-radius: 0;
+
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
+
+.hamburger-menu {
+  width: 42px;
+  height: 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  span {
+    display: block;
+    font-size: 0;
+    pointer-events: none;
+
+    &::before,
+    &::after {
+      content: '';
+      display: inline-block;
+      background: $white;
+      height: 4px;
+      width: 50%;
+      position: relative;
+      border-radius: 4px 0 0 4px;
+      transform-origin: 0% 50% 0;
+      transition: all .3s ease;
+    }
+
+    &::after {
+      border-radius: 0 4px 4px 0;
+      transform-origin: 100% 50% 0;
+    }
+
+    &:nth-child(even) {
+      display: flex;
+      justify-content: center;
+
+      &::before {
+        transform-origin: 100% 50% 0;
+        transition: width .3s linear;
+        // border-radius: 4px;
+      }
+
+      &::after {
+        transform-origin: 0 50% 0;
+        transition: width .3s linear;
+        // background: transparent;
+      }
+
+    }
+
+  }
+
+  &.open {
+
+    padding: 0 0 0 11px;
+
+    span {
+
+      &:first-child {
+
+        &::before {
+          transform: rotate(45deg);
+          left: 8px;
+        }
+
+        &::after {
+          transform: rotate(-45deg);
+        }
+
+      }
+
+      &:last-child {
+
+        &::before {
+          transform: rotate(-45deg);
+          left: 8px;
+        }
+
+        &::after {
+          transform: rotate(45deg);
+        }
+
+      }
+
+      &:nth-child(even) {
+        &::before,
+        &::after {
+          width: 0;
+        }
+      }
+    }
+
+  }
+
+  .scroll-down & {
+
+    span {
+
+      &::before,
+      &::after {
+        background: $white;
+      }
+    }
+  }
+
+}
+
+.ios {
+
+  header {
+
+    .header {
+
+      &__navigation {
+
+        &.open {
+          height: calc(100vh - 44px);
+        }
+      }
+    }
+
+  }
+}
+
+@include desktop-up {
+  #header {
+    border-top-width: 0px;
+    height: 160px;
+
+    &::before {
+      content: '';
+      display: block;
+      background: $white;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 90px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      top: 90px;
+    }
+
+    .header {
+
+      &__top {
+        width: auto;
+        height: 100%;
+      }
+
+      &__bottom {
+        margin: 0;
+        display: flex;
+        height: 70px;
+        justify-content: flex-end;
+      }
+
+      &__logo {
+        height: 70px;
+        top: -20px;
+      }
+
+      &__navigation {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        top: 0;
+        padding: 0;
+        z-index: 1;
+        background: none;
+      }
+    }
+  }
+
+  .hamburger-menu {
+    display: none;
+  }
+}

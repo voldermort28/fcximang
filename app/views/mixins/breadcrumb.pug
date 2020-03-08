@@ -1,0 +1,7 @@
+mixin breadcrumb(items, pageName)
+  ul.breadcrumb__list
+    each item in items
+      li.breadcrumb__item
+        +link(item.title, item.href, item.text).breadcrumb__link
+        span.breadcrumb__icon
+    li.breadcrumb__item #{pageName}

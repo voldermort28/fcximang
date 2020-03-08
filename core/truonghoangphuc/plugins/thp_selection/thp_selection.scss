@@ -1,0 +1,114 @@
+@import '../variables';
+
+.thp-select {
+  position: relative;
+  display: inline-block;
+
+  select {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 0;
+  }
+
+  .btn-select {
+    background: $blue;
+    border: none;
+    color: $white;
+    padding-right: 40px;
+    position: relative;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      border-left: solid 4px transparent;
+      border-right: solid 4px transparent;
+      border-top: solid 4px $white;
+      position: absolute;
+      width: 0;
+      height: 0;
+      right: 15px;
+      top: calc(50% - 2px);
+      transition: transform .3s linear;
+    }
+
+  }
+
+  .thp-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 100%;
+    list-style: none;
+    border-radius: 4px;
+    border: solid 1px $border-color;
+    z-index: -1;
+    background: $white;
+    margin: 4px 0 0 0;
+    padding: 0;
+
+    &::before {
+      content: '';
+      border-left: solid 4px transparent;
+      border-right: solid 4px transparent;
+      border-bottom: solid 4px $border-color;
+      position: absolute;
+      width: 0;
+      height: 0;
+      top: -4px;
+      right: 15px;
+    }
+
+    &::after {
+      content: '';
+      border-left: solid 4px transparent;
+      border-right: solid 4px transparent;
+      border-bottom: solid 4px $white;
+      position: absolute;
+      width: 0;
+      height: 0;
+      top: -3px;
+      right: 15px;
+    }
+
+    li {
+      padding: $padding;
+      cursor: pointer;
+      transition: background .3s linear;
+
+      &:first-child {
+        border-radius: 4px 4px 0 0;
+      }
+
+      &:last-child {
+        border-radius: 0 0 4px 4px;
+      }
+
+      &:hover,
+      &.selected {
+        background: $gray-200;
+      }
+
+    }
+  }
+
+  &.open {
+
+    .btn-select {
+      &::after {
+        transform: rotate(180deg);
+      }
+    }
+
+    .thp-options {
+      display: block;
+      z-index: 1000;
+    }
+
+  }
+
+
+}

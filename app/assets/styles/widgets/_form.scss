@@ -1,0 +1,120 @@
+.form {
+  border-radius: 5px;
+  min-width: 280px;
+
+  .form-group {
+    margin-bottom: 15px;
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .form-control {
+      border-radius: 10px;
+      border: none;
+      padding: 10px 12px;
+      width: 100%;
+      line-height: 1;
+
+      &::-webkit-input-placeholder {
+        color: #999;
+      }
+      &::-moz-input-placeholder {
+        color: #999;
+      }
+      &::-ms-input-placeholder {
+        color: #999;
+      }
+      &::input-placeholder {
+        color: #999;
+      }
+    }
+  }
+
+}
+
+#modalSignIn,
+#modalSignUp {
+  .thp-modal__body {
+    padding: 0;
+    background: none;
+  }
+
+  .thp-modal__instance {
+    background: none;
+    border: none;
+  }
+
+  .form {
+    padding: 20px;
+    background: url('../images/upload/modal_bg_1.png') center bottom no-repeat scroll transparent;
+
+    .btn {
+      
+      .fa {
+        margin-right: 20px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+      }
+
+      &-facebook {
+        .fa {
+          color: $white;
+          border-radius: 30px;
+          background: $primary-color;
+        }
+      }
+
+      &-google {
+        .fa {
+          border-radius: 30px;
+          background: url('../images/upload/google__logos.png') 0 0 no-repeat scroll $white;
+          background-size: 30px;
+        }
+      }
+
+      &-zalo {
+        .fa {
+          background: url('../images/upload/zalo__logos.png') 0 0 no-repeat scroll transparent;
+          background-size: 30px;
+        }
+      }
+    }
+
+    .form-cmd {
+      .btn {
+        width: 100%;
+        text-transform: uppercase;
+        font-weight: 600;
+        padding: 6px 30px;
+        text-align: center;
+        height: 48px;
+        border-radius: 30px;
+
+        &.btn-ico--text {
+          display: flex;
+          align-items: center;
+          padding: 6px 10px;
+        }
+      }
+    }
+  }
+}
+
+@include tablet-up {
+  .form {
+    border-radius: 10px;
+    width: 400px;
+  }
+
+  #modalSignIn,
+  #modalSignUp {
+
+    .form {
+      padding: 40px;
+    }
+  }
+}

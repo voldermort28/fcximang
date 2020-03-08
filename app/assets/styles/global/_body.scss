@@ -1,0 +1,32 @@
+html {
+  scroll-behavior: smooth;
+  &.wf-active {
+    font-family: $font-primary;
+  }
+}
+
+body {
+  font-family: $font-primary;
+  line-height: 1.4;
+  
+  &.popup {
+    background: none;
+    text-align: center;
+    padding: 40px 0;
+  }
+
+  &.loading {
+    position: relative;
+    pointer-events: none;
+    &::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9999;
+      background: url('../images/ajax-loader.gif') center center no-repeat scroll rgba($white, .8);
+    }
+  }
+}

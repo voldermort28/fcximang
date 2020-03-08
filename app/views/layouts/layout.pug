@@ -1,0 +1,62 @@
+include ../mixins/all.pug
+
+- production = self.htmlWebpackPlugin.options.production
+block vars
+  - title = 'Sony - Bravia OLED';
+doctype html
+html.no-js.thp-site(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    title= title
+    meta(name='description', content=description ? description : '')
+    meta(name='keywords', content=keyword ? keyword : '')
+    meta(name='robots', content='index, follow')
+    meta(name='author', content='')
+
+    if production
+      link(rel='preload',as='style',href='assets/styles/app.min.css')
+      link(rel='preload',as='script',href='scripts/app.min.js')
+      link(rel='preload',as='font',href='assets/fonts/fontawesome-webfont.woff2?v=4.7.0',type='font/woff2',crossorigin='anonymous')
+      link(rel='preload',as='font',href='assets/fonts/SFUEurostile.woff2',type='font/woff2',crossorigin='anonymous')
+      link(rel='preload',as='font',href='assets/fonts/SFUEurostileDemi.woff2',type='font/woff2',crossorigin='anonymous')
+      link(rel='preload',as='font',href='assets/fonts/SFUEurostileBold.woff2',type='font/woff2',crossorigin='anonymous')
+      link(rel='manifest', href='manifest.json')
+
+    link(rel='apple-touch-icon', sizes='57x57', href=require('../../assets/images/apple-icon-57x57.png'))
+    link(rel='apple-touch-icon', sizes='60x60', href=require('../../assets/images/apple-icon-60x60.png'))
+    link(rel='apple-touch-icon', sizes='72x72', href=require('../../assets/images/apple-icon-72x72.png'))
+    link(rel='apple-touch-icon', sizes='76x76', href=require('../../assets/images/apple-icon-76x76.png'))
+    link(rel='apple-touch-icon', sizes='114x114', href=require('../../assets/images/apple-icon-114x114.png'))
+    link(rel='apple-touch-icon', sizes='120x120', href=require('../../assets/images/apple-icon-120x120.png'))
+    link(rel='apple-touch-icon', sizes='144x144', href=require('../../assets/images/apple-icon-144x144.png'))
+    link(rel='apple-touch-icon', sizes='152x152', href=require('../../assets/images/apple-icon-152x152.png'))
+    link(rel='apple-touch-icon', sizes='180x180', href=require('../../assets/images/apple-icon-180x180.png'))
+    link(rel='icon', type='image/png', sizes='192x192', href=require('../../assets/images/android-icon-192x192.png'))
+    link(rel='icon', type='image/png', sizes='32x32', href=require('../../assets/images/favicon-32x32.png'))
+    link(rel='icon', type='image/png', sizes='96x96', href=require('../../assets/images/favicon-96x96.png'))
+    link(rel='icon', type='image/png', sizes='16x16', href=require('../../assets/images/favicon-16x16.png'))
+    meta(name='msapplication-TileColor', content='#ffffff')
+    meta(name='msapplication-TileImage', content=require('../../assets/images/ms-icon-144x144.png'))
+    meta(name='theme-color', content='#293037')
+
+    if production
+      style.
+        !{self.htmlWebpackPlugin.options.inline}
+  body
+    //- [if lte IE 9]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]
+    noscript JavaScript is off. Please enable to view full site.
+    #fb-root
+    script(async, defer, crossorigin="anonymous", src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v6.0&appId=131565921511040&autoLogAppEvents=1")
+    include ../global/header.pug
+    block container
+    include  ../block/modal_signin.pug
+    include  ../block/modal_signup.pug
+    include ../global/footer.pug
+    if production
+      script.
+        const mode = 'production';
+    else
+      script.
+        const mode = 'development';

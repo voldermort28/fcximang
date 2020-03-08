@@ -1,0 +1,14 @@
+mixin nav(items)
+  ul
+    each item, key in items
+      - var active = ''
+      - if (key === menuIndex) active = 'active'
+      li(class=active)
+        +link(item.title, item.href, item.text)(class=item.class)
+        if (typeof(item.itemsMenu) !== 'undefined')
+          +nav(item.itemsMenu)
+
+mixin list(items)
+  ul&attributes(attributes)
+    each item, key in items
+      li(class=item.class) #{item.text}

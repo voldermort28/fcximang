@@ -1,0 +1,206 @@
+.top-banner {
+  padding: 15px 0 10px;
+}
+
+.box-content {
+  background: $primary-color;
+  color: $white;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 0 auto 20px;
+  padding-bottom: 20px;
+
+  &--dark {
+    background: $secondary-color;
+    border-radius: 5px;
+    .content__body {
+      padding: 15px;
+      color: $white;
+      font-size: rem(12px);
+    }
+  }
+
+  .content__heading {
+    background-color: $secondary-color;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: rem(12px);
+    padding: 8px 15px;
+    margin: 0 0 15px;
+  }
+
+  .content__body {
+    font-size: rem(12px);
+    padding: 15px 15px 0;
+  }
+
+  .thp-scroll {
+
+    &:focus {
+      outline: none;
+    }
+
+    &__container {
+      &:focus {
+        outline: none;
+      }
+    }
+
+    &__bar {
+      opacity: 1;
+      background: rgba($secondary-color, .25);
+      right: 5px;
+    }
+
+    &__thumb--vertical {
+      left: 2px;
+      right: 2px;
+    }
+  }
+}
+
+.content-policy {
+
+  ol {
+    margin: 0 0 0 20px;
+    padding: 0;
+  }
+}
+
+.supreme-box {
+  margin: 0 auto 15px;
+  
+  .img {
+    flex: 0 0 50%;
+  }
+
+  p {
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.connect-appbar {
+
+  &__toolbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+    
+    .btn {
+      align-self: center;
+
+      &-ico {
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+        line-height: 30px;
+        padding: 0;
+        text-align: center;
+        box-shadow: 1px 2px 4px rgba(0,0,0,.2);
+        margin-left: 5px;
+        font-size: rem(16px);
+      }
+
+      &-zalo {
+        border-radius: 0;
+        box-shadow: none; 
+        background: url('../images/upload/zalo__logos.png') 0 0 no-repeat scroll transparent;
+        background-size: 30px;
+      }
+
+      &-google {
+        background: url('../images/upload/google__logos.png') 0 0 no-repeat scroll $white;
+        background-size: 30px;
+      }
+
+      &-facebook {
+        background-color: $secondary-color;
+        
+        .fa {
+          color: $white;
+        }
+      }
+    }
+
+    .social-conntect {
+      display: flex;
+      align-items: center;
+      padding: 0 0 0 20px;
+      color: $secondary-color;
+
+      p {
+        margin: 0 10px 0 0;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+@include tablet-up {
+
+  .main-banner,
+  .main-content {
+    flex: 0 0 calc(50% - 10px);
+    align-self: flex-start;
+    margin-bottom: 30px;
+
+    .box-content {
+      margin: 0;
+      height: 100%;
+    }
+  }
+
+  .main-content {
+    position: relative;
+  }
+
+  .box-content,
+  .box-content--dark {
+
+    .content__heading,
+    .content__body {
+      font-size: rem(14px);
+    }
+
+    &.content-policy {
+      padding-bottom: 84px;
+    }
+
+  }
+
+  .box-content--dark {
+    align-self: center;
+
+    .content__body {
+      padding: 15px 30px;
+    }
+  }
+
+  .supreme-box .img {
+    flex: 0 0 30%;
+  }
+
+  .connect-appbar {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba($secondary-color, .3);
+    border-radius: 0 0 5px 5px;
+
+    .social-conntect {
+      color: $white;
+      
+      p {
+        font-size: rem(14px);
+        font-weight: 400;
+      }
+    }
+  }
+
+}

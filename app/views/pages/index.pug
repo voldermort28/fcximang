@@ -1,0 +1,48 @@
+extends ../layouts/layout
+
+block vars
+  - title = "Fico YTL - Miễn phí xi măng";
+  - keyword = "Fico YTL - Miễn phí xi măng";
+  - description = "Fico YTL - Miễn phí xi măng, xây nhà bền chắc";
+  - menuIndex = 0
+
+block container
+  h1.invisible-title Fico YTL - Miễn phí xi măng, xây nhà bền chắc
+  .container
+    .top-banner
+      a(href='#', title='')
+        img.d-md-none(data-thp-lazy='', src=require('../../assets/images/ajax-loader.gif'), data-source=require('../../assets/images/upload/top-banner--m.png'))
+        img.d-none.d-md-block(data-thp-lazy='', src=require('../../assets/images/ajax-loader.gif'), data-source=require('../../assets/images/upload/top-banner--d.png'))
+  .container.d-md-flex.justify-content-between
+    .main-banner
+      img.d-md-none(data-thp-lazy='', src=require('../../assets/images/ajax-loader.gif'), data-source=require('../../assets/images/upload/main-banner--m.jpg'))
+      img.d-none.d-md-block(data-thp-lazy='', src=require('../../assets/images/ajax-loader.gif'), data-source=require('../../assets/images/upload/main-banner--d.jpg'))
+    .main-content
+      .connect-appbar
+        .connect-appbar__toolbar
+          a.btn.btn-primary(href='#modalSignUp',data-thp-modal='#modalSignUp', title='Đăng ký ngay') Đăng ký ngay
+          .social-conntect
+            p Kết nối với
+            a.btn.btn-ico.btn-zalo(href='#zalo', title='Kết nối bằng Zalo')
+            a.btn.btn-ico.btn-google(href='#google', title='Kết nối bằng Google')
+            a.btn.btn-ico.btn-facebook(href='#facebook', title='Kết nối bằng Facebook')
+              span.fa.fa-facebook
+      .content-policy.box-content
+        .content__heading Thể lệ chương trình cơ chế trúng thưởng
+        .content__body(data-thp-scroll='')
+          include ../block/term_conditions.pug
+  .container
+    .content-faq.box-content
+      .content__heading Câu hỏi thường gặp
+      .content__body(data-thp-scroll='')
+        include ../block/faq.pug
+  .container
+    .supreme-box.d-flex
+      .img
+        img.d-md-none(data-thp-lazy='', src=require('../../assets/images/ajax-loader.gif'), data-source=require('../../assets/images/upload/supreme-power--m.png'))
+        img.d-none.d-md-block(data-thp-lazy='', src=require('../../assets/images/ajax-loader.gif'), data-source=require('../../assets/images/upload/supreme-power--d.png'))
+      .box-content--dark
+        .content__body
+          p Supreme Power là dòng xi măng cao cấp, tối ưu cho hạng mục Móng Dầm Cột Sàn, được phát bởi Fico-YTL. Xi măng Supreme Power cho khả năng thi công dễ dàng, thời gian đông kết sớm và kết cấu ngôi nhà đạt độ cứng chắc vượt trội.
+          p Ngôi nhà được xây dựng bằng xi măng Supreme Power có được sự vững chắc dài lâu, đứng vững trước tác động của thiên nhiên, giảm thiểu chi phí, thời gian và công sức sửa chữa hoặc bảo dưỡng.
+      

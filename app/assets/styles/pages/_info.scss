@@ -1,0 +1,123 @@
+.bottom-banner {
+  padding: 15px 0 10px;
+  border-radius: 10px;
+  background: $secondary-color;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 0 auto 20px;
+
+  a {
+    display: block;
+    margin: 0 10px;
+  }
+}
+
+.video-streaming {
+  margin: 0 auto 20px;
+
+  .text-info {
+    text-align: center;
+  }
+
+  figure {
+    padding: 0 15px;
+    margin: 0 auto 20px;
+    text-align: center;
+
+    .img {
+      max-width: 180px;
+      margin: 0 auto 20px;
+    }
+
+    figcaption {
+      font-weight: 700;
+      text-transform: uppercase;
+      color: $primary-color;
+    }
+  }
+
+  .video {
+    // background: $primary-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+  }
+}
+
+.thankyou-area {
+  background: $primary-color;
+  color: $white;
+  padding: 15px 20px 30px;
+  border-radius: 10px;
+  margin: 0 auto 20px;
+
+  .heading {
+    font-size: rem(12px);
+    text-align: center;
+    text-transform: uppercase;
+    background: url('../images/upload/heading--m.png') no-repeat 0 0 scroll transparent;
+    background-size: contain;
+    padding: 10px 0;
+    position: relative;
+    top: -20px;
+  }
+
+  .form-cmd {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    label {
+      flex: 0 0 100%;
+    }
+
+    .btn {
+      font-weight: 600;
+    }
+  }
+}
+
+@include tablet-up {
+  .video-streaming {
+    margin: 0 auto 30px;
+    
+    .text-info {
+      flex: 0 0 50%;
+      
+      figure {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        margin: 0;
+
+        figcaption {
+          flex: 0 0 50%;
+          text-align: left;
+          font-size: rem(16px);
+          padding-left: 15px;
+        }
+      }
+    }
+
+    .video {
+      flex: 0 0 50%;
+    }
+  }
+}
+
+@include desktop-up {
+  .video-streaming {
+    
+    .text-info {
+    
+      figure {
+    
+        figcaption {
+          font-size: rem(20px);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+include ../mixins/all.pug
+header#header
+  .container
+    .header__top.d-flex.align-items-center.justify-content-between
+      +link('Fico YTL\'s logo', 'index.html', 'Fico YTL\'s logo').header__logo
+        +img('Fico YTL\'s logo', require('../../assets/images/logo.png'))
+      a.hamburger-menu(data-thp-dropdown,data-target='#menuWrapper',href='javascript:void(0);',title='Menu')
+        span
+        span
+        span
+    .header__bottom
+      .header__navigation.thp-dropdown__menu#menuWrapper
+        include ./menu.pug
+
+    

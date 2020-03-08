@@ -1,0 +1,6 @@
+mixin img(alt, src)
+  - if (typeof(src) === 'undefined') src = require('../../assets/images/transparent.png')
+  img(alt=alt, src=src)&attributes(attributes)
+
+mixin lazyImg(img)
+  img(alt=img.alt, data-thp-lazy, src=img.fake,data-source=img.src)&attributes(attributes)

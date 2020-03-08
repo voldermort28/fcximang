@@ -1,0 +1,41 @@
+@import './variables';
+/* Share styling */
+.thp {
+  &-panel {
+    display: none;
+    border: solid $border-width $border-color;
+    transition: $transition-collapse;
+
+    &.active {
+      display: block;
+      opacity: 1;
+    }
+
+    &.opening {
+      display: block;
+      height: 0;
+      overflow: hidden;
+    }
+
+    &__body {
+      padding: $padding;
+    }
+
+  }
+}
+
+.stop-transition {
+  transition: none !important;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-flex {
+  display: flex;
+}

@@ -1,0 +1,57 @@
+@import '../variables';
+@import '../common';
+
+.thp-tab {
+
+  &.nav {
+    display: flex;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-bottom: solid $border-width $border-color;
+  }
+
+  &__item {
+    margin-bottom: 0;
+    & + .thp-tab__item {
+      margin-left: $unit-spacing;
+    }
+
+  }
+
+  &__link {
+    display: block;
+    padding: $padding;
+    text-decoration: none;
+    position: relative;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+
+    .active & {
+      border-radius: $border-radius $border-radius 0 0;
+      border: solid $border-width $border-color;
+      border-bottom: 0;
+
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        height: 1px;
+        width: 100%;
+        left: 0;
+        display: block;
+        background: $white;
+      }
+    }
+
+  }
+
+  &-content-wrapper {
+    position: relative;
+  }
+
+}

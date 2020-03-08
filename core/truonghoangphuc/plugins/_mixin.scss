@@ -1,0 +1,55 @@
+@import './variables';
+
+@mixin mobile-small {
+  @media screen and (max-width: #{$screen-xs-up}) {
+    @content;
+  }
+}
+
+@mixin mobile-landscape {
+  @media screen and (min-width: 480px) {
+    @content;
+  }
+}
+
+@mixin mobile-large {
+  @media screen and (min-width: #{$screen-sm}) {
+    @content;
+  }
+}
+
+@mixin tablet-down {
+  @media screen and (max-width: #{$screen-sm-up}) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media screen and (min-width: #{$screen-md}) {
+    @content;
+  }
+}
+
+@mixin desktop-down {
+  @media screen and (max-width: #{$screen-md-up}) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media screen and (min-width: #{$screen-lg}) {
+    @content;
+  }
+}
+
+@mixin lg-desktop-up {
+  @media screen and (min-width: #{$screen-xlg}) {
+    @content;
+  }
+}
+
+@mixin xlg-desktop-up {
+  @media screen and (min-width: #{$screen-xxlg}) {
+    @content;
+  }
+}

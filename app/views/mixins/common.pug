@@ -1,0 +1,42 @@
+mixin link(title, href, text)
+  - if (typeof (text) === 'undefined') text = title
+  - if (typeof (href) === 'undefined') href = '#'
+  a(href=href, title=title)&attributes(attributes)
+    if block
+      block
+    else
+      != text
+
+mixin features(items)
+  each item in items
+    figure
+      .thumbnail
+        img(alt=item.title, data-thp-lazy, src=require('../../assets/images/ajax-loader.gif'),data-source=item.thumb)&attributes(attributes)
+      .info
+        .info-content
+          h4.title #{item.title}
+          .text !{item.desc}
+
+mixin photographers(items)
+  each item in items
+    figure
+      .thumbnail
+        img(alt=item.title, data-thp-lazy, src=require('../../assets/images/ajax-loader.gif'),data-source=item.thumb)&attributes(attributes)
+      .info
+        .info-content
+          h4.name #{item.name}
+          .title #{item.title}
+          .text !{item.talk}
+
+mixin news(items)
+  each item in items
+    figure
+      .news_icons
+        img(alt=item.icon, data-thp-lazy, src=require('../../assets/images/ajax-loader.gif'),data-source=item.icon)&attributes(attributes)
+      .thumbnail
+        a(href=item.link,title=item.title,target='_blank')
+          img(alt=item.title, data-thp-lazy, src=require('../../assets/images/ajax-loader.gif'),data-source=item.thumb)&attributes(attributes)
+      .info
+        .info-content
+          a.title(href=item.link,title=item.title,target='_blank') !{item.title}
+          .text !{item.summary}

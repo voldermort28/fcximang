@@ -1,0 +1,27 @@
+@import '../variables';
+@import '../common';
+
+.error {
+  color: $danger;
+  display: none;
+}
+
+.invalid {
+  color: $danger;
+  border-color: $danger;
+
+  & + .error {
+    display: block;
+    padding: $unit-spacing;
+  }
+}
+
+.success {
+  color: $success;
+  border-color: $success;
+
+  & + .error {
+    display: nonde;
+    padding: 0;
+  }
+}
