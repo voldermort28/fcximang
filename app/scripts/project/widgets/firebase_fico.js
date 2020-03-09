@@ -74,6 +74,7 @@ class FirebaseFico {
   // eslint-disable-next-line class-methods-use-this
   getBills(user, cb) {
     const res = [];
+    // console.log(user);
     db.collection('bill').where('user_id', '==', user.id).get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         const bill = doc.data();
@@ -83,7 +84,6 @@ class FirebaseFico {
       cb(res);
     })
       .catch((error) => {
-        console.log(error);
         cb(error);
       });
   }
@@ -122,7 +122,7 @@ class FirebaseFico {
 
   // eslint-disable-next-line class-methods-use-this
   addBill(bill, cb) {
-    console.log(bill);
+    // console.log(bill);
     db.collection('bill').add(bill)
       .then((docRef) => {
         cb(docRef);
@@ -169,7 +169,7 @@ class FirebaseFico {
 
   // eslint-disable-next-line class-methods-use-this
   signInPhone(data, cb) {
-    console.log(data);
+    // console.log(data);
     const res = [];
     let query = db.collection('users').where('phone', '==', data.phone);
     query = query.where('password', '==', data.password);

@@ -1,5 +1,9 @@
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-alert */
 /* eslint-disable no-console */
-import { ajaxRequest, getCookie, setCookie } from '../../../../core/truonghoangphuc/utils';
+import {
+  ajaxRequest, getCookie, setCookie, fireEvent,
+} from '../../../../core/truonghoangphuc/utils';
 import THPValidation from '../../../../core/truonghoangphuc/plugins/thp_validation/thp_validation';
 
 import FirebaseFico from '../widgets/firebase_fico';
@@ -29,27 +33,70 @@ async function loadDistrict(cb) {
   }
 }
 
+async function checkIP() {
+  try {
+    const txt = await ajaxRequest({
+      url: 'https://www.cloudflare.com/cdn-cgi/trace',
+    });
+
+    return txt.split('\n').join('|');
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function addBill(object) {
+  if (object.total >= 200) {
+    window.appLoading(document.body, true);
+    firebaseFico.addBill(object, () => {
+      // firebaseFico.getBills(app.user, (res1) => {
+      //   let total = 0;
+      //   res1.map((x) => {
+      //     total += x.total;
+      //     return total;
+      //   });
+      //   if (total >= 200) {
+      //     // window.location.href = '/info.html';
+      //     firebaseFico.getMaxLucky((n) => {
+      //       console.log(n, total);
+      //       window.appLoading(document.body, false);
+      //     });
+      //   } else {
+      //     window.location.href = '/info.html';
+      //   }
+      // });
+      firebaseFico.getMaxLucky((n) => {
+        app.user.lucky = n === 0 ? 1001 : (n + 1);
+
+        firebaseFico.updateUser(app.user, () => {
+          setCookie('user', JSON.stringify(app.user), 30);
+          window.appLoading(document.body, false);
+          window.location.href = '/info.html';
+        });
+      });
+    });
+  } else if (!isNaN(object.total) && object.total > 0) {
+    window.appLoading(document.body, true);
+    firebaseFico.addBill(object, () => {
+      window.appLoading(document.body, false);
+      alert('Cảm ơn bạn đã tham gia chương trình.\nĐáng tiếc bạn chưa đủ 200 bao xi măng để nhận mã rút thăm,\nvui lòng mua đủ và quay lại tiếp tục tham gia');
+    });
+  }
+}
+
 let districtData = [];
 let city;
 let district;
 let form;
 let btnBill;
 app.ready(() => {
+  city = document.querySelector('select#city');
+  district = document.querySelector('select#district');
+
   if (app.user === undefined) {
     app.user = getCookie('user');
     if (app.user === '') app.user = JSON.parse(app.user);
   }
-
-  if (app.user) {
-    firebaseFico.getBills(app.user, (res1) => {
-      if (res1.length) window.location.href = '/info.html';
-    });
-  } else {
-    window.location.href = '/';
-  }
-
-  city = document.querySelector('select#city');
-  district = document.querySelector('select#district');
 
   city.addEventListener('change', (e) => {
     e.preventDefault();
@@ -73,6 +120,35 @@ app.ready(() => {
         return x;
       });
       city.innerHTML += _html;
+    }
+
+    if (app.user) {
+      window.appLoading(document.body, true);
+      firebaseFico.getBills(app.user, (res1) => {
+        if (res1.length) {
+          res1.map((x) => {
+            if (x.total >= 200) {
+              window.location.href = '/info.html';
+            }
+            return x;
+          });
+
+          const auto = res1[res1.length - 1];
+
+          if (auto.city) {
+            city.value = auto.city;
+            fireEvent(city, 'change');
+
+            district.value = auto.district;
+            document.querySelector('[name="street"]').value = auto.street;
+            document.querySelector('[name="shop"]').value = auto.shop;
+            document.querySelector('[name="shopphone"]').value = auto.shopphone;
+          }
+        }
+        window.appLoading(document.body, false);
+      });
+    } else {
+      window.location.href = '/';
     }
   });
 
@@ -104,44 +180,14 @@ app.ready(() => {
 
     object.total = parseInt(object.total, 0);
     object.user_id = app.user.id;
+    object.created = new Date();
 
-    window.appLoading(document.body, true);
-
-    firebaseFico.addBill(object, () => {
-      if (object.total >= 200) {
-        // window.location.href = '/info.html';
-        firebaseFico.getMaxLucky((n) => {
-          app.user.lucky = n === 0 ? 1001 : (n + 1);
-
-          firebaseFico.updateUser(app.user, () => {
-            console.log('....');
-            setCookie('user', JSON.stringify(app.user), 30);
-            window.appLoading(document.body, false);
-            window.location.href = '/info.html';
-          });
-        });
-      } else {
-        window.appLoading(document.body, false);
-        window.location.href = '/info.html';
-      }
-      // firebaseFico.getBills(app.user, (res1) => {
-      //   let total = 0;
-      //   res1.map((x) => {
-      //     total += x.total;
-      //     return total;
-      //   });
-      //   if (total >= 200) {
-      //     // window.location.href = '/info.html';
-      //     firebaseFico.getMaxLucky((n) => {
-      //       console.log(n, total);
-      //       window.appLoading(document.body, false);
-      //     });
-      //   } else {
-      //     window.location.href = '/info.html';
-      //   }
-      // });
+    checkIP().then((logs) => {
+      object.logs = logs;
+      addBill(object);
+    }).catch(() => {
+      addBill(object);
     });
-
     return false;
   });
 });

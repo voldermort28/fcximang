@@ -252,6 +252,7 @@ app.ready(() => {
   formSignIn.password = formSignIn.form.querySelector('.input-password');
 
   formSignUp.form = document.querySelector('#modalSignUp').querySelector('.form');
+  formSignUp.socials = convertNodeListToArray(formSignUp.form.querySelectorAll('.btn-ico--text'));
   formSignUp.phone = formSignUp.form.querySelector('.input-phone');
   formSignUp.cmnd = formSignUp.form.querySelector('.input-cmnd');
   formSignUp.fullname = formSignUp.form.querySelector('.input-fullname');
@@ -298,7 +299,7 @@ app.ready(() => {
             firebaseFico.getUser('cmnd', app.user.cmnd, (res2) => {
               if (res2.length === 0) {
                 firebaseFico.updateUser(app.user, () => {
-                  console.log('....');
+                  // console.log('....');
                   callBillInfo(app.user);
                 });
               } else {
@@ -366,8 +367,11 @@ app.ready(() => {
       firebaseFico.signInPhone(object, (res) => {
         if (res[0]) {
           [app.user] = res;
-          appLoading(document.body, false);
-          callBillInfo(app.user);
+          app.user.signin = new Date();
+          firebaseFico.updateUser(app.user, () => {
+            appLoading(document.body, false);
+            callBillInfo(app.user);
+          });
         }
       });
     }
@@ -385,6 +389,10 @@ app.ready(() => {
         if (app.user) {
           formSignUp.password.parentElement.classList.add('d-none');
           formSignUp.verifypassword.parentElement.classList.add('d-none');
+          formSignUp.socials.map((x) => {
+            x.parentElement.classList.add('d-none');
+            return x;
+          });
           formSignUp.fullname.value = app.user.fullname;
           if (app.user.cmnd) formSignUp.cmnd.value = app.user.cmnd;
           if (app.user.phone) formSignUp.phone.value = app.user.phone;
