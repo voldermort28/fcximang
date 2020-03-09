@@ -37,11 +37,10 @@ let btnBill;
 app.ready(() => {
   if (app.user === undefined) {
     app.user = getCookie('user');
+    if (app.user === '') app.user = JSON.parse(app.user);
   }
 
-  if (app.user !== '') {
-    app.user = JSON.parse(app.user);
-
+  if (app.user) {
     firebaseFico.getBills(app.user, (res1) => {
       if (res1.length) window.location.href = '/info.html';
     });

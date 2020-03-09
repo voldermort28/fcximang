@@ -357,7 +357,7 @@ app.ready(() => {
   formSignIn.submit.addEventListener('click', (e) => {
     e.preventDefault();
     app.formSignInValidate.validate(false);
-    if (formSignIn.phone.value.trim() !== '' && object.password !== '') {
+    if (formSignIn.phone.value.trim() !== '' && formSignIn.phone.value.password !== '') {
       const object = {};
       object.phone = formSignIn.phone.value.trim();
       object.password = CryptoJS.AES.encrypt(formSignIn.password.value.trim(), CryptoJS.enc.Utf8.parse('ficoximang2020'), { iv: CryptoJS.enc.Base64.parse('ficoximang2020') }).toString();
