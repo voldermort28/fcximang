@@ -68,6 +68,27 @@ window.appLoading = (el, isLoading) => {
   if (!isLoading) el.classList.remove('loading');
 };
 
+function addUser(provider, data) {
+  const user = {};
+  user.cmnd = '';
+  user.email = data.email;
+  user.phone = data.phoneNumber;
+  user.fullname = data.displayName;
+  user.signin = data.metadata.lastSignInTime;
+  user.created = data.metadata.creationTime;
+  user.lucky = 0;
+  user[provider] = data.uid;
+  firebaseFico.addUser(user, (res) => {
+    if (res.id) {
+      user.id = res.id;
+      app.user = user;
+      if (app.user.cmnd === '' || app.user.cmnd === null || app.user.phone === '' || app.user.phone === null) {
+        app.signUp.open();
+      }
+    }
+  });
+}
+
 function afterConnect(provider, data) {
   // console.log(data);
   const user = {};
@@ -76,23 +97,7 @@ function afterConnect(provider, data) {
       if (res1.length === 0 && data.email === null) {
         firebaseFico.getUser('email', data.email, (res2) => {
           if (res2.length === 0) {
-            user.cmnd = '';
-            user.email = data.email;
-            user.phone = data.phoneNumber;
-            user.fullname = data.displayName;
-            user.signin = data.metadata.lastSignInTime;
-            user.created = data.metadata.creationTime;
-            user.lucky = 0;
-            user[provider] = data.uid;
-            firebaseFico.addUser(user, (res) => {
-              if (res.id) {
-                user.id = res.id;
-                app.user = user;
-                if (app.user.cmnd === '' || app.user.cmnd === null || app.user.phone === '' || app.user.phone === null) {
-                  app.signUp.open();
-                }
-              }
-            });
+            addUser(provider, data);
           }
         });
       }
@@ -101,30 +106,14 @@ function afterConnect(provider, data) {
     firebaseFico.getUser('email', data.email, (res2) => {
       // console.log(res2);
       if (res2.length === 0) {
-        user.cmnd = '';
-        user.email = data.email;
-        user.phone = data.phoneNumber;
-        user.fullname = data.displayName;
-        user.signin = data.metadata.lastSignInTime;
-        user.created = data.metadata.creationTime;
-        user.lucky = 0;
-        user[provider] = data.uid;
-        firebaseFico.addUser(user, (res) => {
-          if (res.id) {
-            user.id = res.id;
-            app.user = user;
-            if (app.user.cmnd === '' || app.user.cmnd === null) {
-              app.signUp.open();
-            }
-          }
-        });
+        addUser(provider, data);
       } else {
         user.id = res2[0].id;
         user.cmnd = res2[0].cmnd;
         user.email = res2[0].email;
         user.phone = res2[0].phone;
         user.fullname = res2[0].fullname;
-        user.signin = res2[0].signin;
+        user.signin = new Date();
         user.created = res2[0].created;
         user[provider] = res2[0][provider];
         user.lucky = res2[0].lucky;
@@ -142,30 +131,14 @@ function afterConnect(provider, data) {
   } else {
     firebaseFico.getUser('zalo', data.uid, (res3) => {
       if (res3.length === 0) {
-        user.cmnd = '';
-        user.email = data.email;
-        user.phone = data.phoneNumber;
-        user.fullname = data.displayName;
-        user.signin = data.metadata.lastSignInTime;
-        user.created = data.metadata.creationTime;
-        user.lucky = 0;
-        user[provider] = data.uid;
-        firebaseFico.addUser(user, (res) => {
-          if (res.id) {
-            user.id = res.id;
-            app.user = user;
-            if (app.user.cmnd === '' || app.user.cmnd === null || app.user.phone === '' || app.user.phone === null) {
-              app.signUp.open();
-            }
-          }
-        });
+        addUser(provider, data);
       } else {
         user.id = res3[0].id;
         user.cmnd = res3[0].cmnd;
         user.email = res3[0].email;
         user.phone = res3[0].phone;
         user.fullname = res3[0].fullname;
-        user.signin = res3[0].signin;
+        user.signin = new Date();
         user.created = res3[0].created;
         user[provider] = res3[0][provider];
         user.lucky = res3[0].lucky;
