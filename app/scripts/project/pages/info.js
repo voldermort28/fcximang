@@ -4,7 +4,7 @@ import {
 
 async function renderInfo(_template, _jsonData) {
   const templateDesc = await loadTemplate(_template);
-  console.log(_jsonData);
+  // console.log(_jsonData);
   if (templateDesc !== '') {
     const html = processTemplate(templateDesc, _jsonData);
     document.querySelector('.template-target').innerHTML = html;

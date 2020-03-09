@@ -33,7 +33,7 @@
     .form-group {
       display: flex;
       padding: 10px 15px 0;
-      
+
       > label {
         flex: 0 0 30%;
       }
@@ -100,6 +100,65 @@
 
       .invalid + .error {
         padding: 2px 0 0;
+      }
+    }
+  }
+}
+
+@include tablet-up {
+
+  .update-area {
+
+    .heading {
+      font-size: rem(20px);
+    }
+
+    .form {
+      width: auto;
+      font-size: rem(14px);
+
+      .form-heading {
+        font-size: rem(20px);
+      }
+
+      .form-control {
+
+        input,
+        select {
+          padding: 10px 12px;
+        }
+      }
+    }
+  }
+}
+
+@include desktop-up {
+
+  .update-area {
+
+    .heading {
+      font-size: rem(24px);
+    }
+
+    .form {
+      width: auto;
+      font-size: rem(16px);
+
+      label {
+        font-size: rem(16px);
+      }
+
+      .form-heading {
+        font-size: rem(24px);
+      }
+
+      .form-group {
+        padding: 20px 40px;
+      }
+
+      .btn {
+        padding: 10px 30px;
+        font-size: rem(16px);
       }
     }
   }

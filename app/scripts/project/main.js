@@ -20,7 +20,7 @@ import THPValidation from '../../../core/truonghoangphuc/plugins/thp_validation/
 
 import FirebaseFico from './widgets/firebase_fico';
 import {
-  setCookie, getCookie, convertNodeListToArray, deleteCookie,
+  setCookie, getCookie, convertNodeListToArray, deleteCookie, getUrlQueryString, ajaxRequest,
 } from '../../../core/truonghoangphuc/utils';
 
 const setting = {
@@ -35,6 +35,12 @@ let logout;
 const formSignUp = {};
 const formSignIn = {};
 const firebaseFico = new FirebaseFico();
+const zaloConfig = {
+  appId: '1532536334337506629',
+  s: 'eWS5tRPV8UVD1X12i8Jn',
+  redirectURL: mode === 'development' ? 'https://thp.test:3200/' : 'https://mienphiximang.fico-ytl.com/',
+};
+const zaloObject = {};
 
 function callPageInfo(user) {
   setCookie('user', JSON.stringify(user), 30);
@@ -63,20 +69,20 @@ window.appLoading = (el, isLoading) => {
 };
 
 function afterConnect(provider, data) {
+  // console.log(data);
+  const user = {};
   if (data.phoneNumber !== null && data.phoneNumber !== '') {
     firebaseFico.getUser('phone', data.phoneNumber, (res1) => {
       if (res1.length === 0 && data.email === null) {
         firebaseFico.getUser('email', data.email, (res2) => {
           if (res2.length === 0) {
-            const user = {
-              cmnd: '',
-              email: data.email,
-              phone: data.phoneNumber,
-              fullname: data.displayName,
-              signin: data.metadata.lastSignInTime,
-              created: data.metadata.creationTime,
-              lucky: 0,
-            };
+            user.cmnd = '';
+            user.email = data.email;
+            user.phone = data.phoneNumber;
+            user.fullname = data.displayName;
+            user.signin = data.metadata.lastSignInTime;
+            user.created = data.metadata.creationTime;
+            user.lucky = 0;
             user[provider] = data.uid;
             firebaseFico.addUser(user, (res) => {
               if (res.id) {
@@ -94,7 +100,6 @@ function afterConnect(provider, data) {
   } else if (data.email !== null && data.email !== '') {
     firebaseFico.getUser('email', data.email, (res2) => {
       // console.log(res2);
-      const user = {};
       if (res2.length === 0) {
         user.cmnd = '';
         user.email = data.email;
@@ -102,6 +107,7 @@ function afterConnect(provider, data) {
         user.fullname = data.displayName;
         user.signin = data.metadata.lastSignInTime;
         user.created = data.metadata.creationTime;
+        user.lucky = 0;
         user[provider] = data.uid;
         firebaseFico.addUser(user, (res) => {
           if (res.id) {
@@ -120,7 +126,49 @@ function afterConnect(provider, data) {
         user.fullname = res2[0].fullname;
         user.signin = res2[0].signin;
         user.created = res2[0].created;
+        user[provider] = res2[0][provider];
         user.lucky = res2[0].lucky;
+        app.user = user;
+        if (app.user.cmnd === '' || app.user.cmnd === null || app.user.phone === '' || app.user.phone === null) {
+          app.signUp.open();
+          appLoading(document.body, false);
+        } else if (app.user.lucky === 0) {
+          callBillInfo(app.user);
+        } else {
+          callPageInfo(app.user);
+        }
+      }
+    });
+  } else {
+    firebaseFico.getUser('zalo', data.uid, (res3) => {
+      if (res3.length === 0) {
+        user.cmnd = '';
+        user.email = data.email;
+        user.phone = data.phoneNumber;
+        user.fullname = data.displayName;
+        user.signin = data.metadata.lastSignInTime;
+        user.created = data.metadata.creationTime;
+        user.lucky = 0;
+        user[provider] = data.uid;
+        firebaseFico.addUser(user, (res) => {
+          if (res.id) {
+            user.id = res.id;
+            app.user = user;
+            if (app.user.cmnd === '' || app.user.cmnd === null || app.user.phone === '' || app.user.phone === null) {
+              app.signUp.open();
+            }
+          }
+        });
+      } else {
+        user.id = res3[0].id;
+        user.cmnd = res3[0].cmnd;
+        user.email = res3[0].email;
+        user.phone = res3[0].phone;
+        user.fullname = res3[0].fullname;
+        user.signin = res3[0].signin;
+        user.created = res3[0].created;
+        user[provider] = res3[0][provider];
+        user.lucky = res3[0].lucky;
         app.user = user;
         if (app.user.cmnd === '' || app.user.cmnd === null || app.user.phone === '' || app.user.phone === null) {
           app.signUp.open();
@@ -134,6 +182,49 @@ function afterConnect(provider, data) {
     });
   }
 }
+
+async function zaloRequestData(code) {
+  const _data = await ajaxRequest({
+    method: 'GET',
+    url: `https://cors-anywhere.herokuapp.com/https://graph.zalo.me/v2.0/me?access_token=${code}&fields=id%2Cname%2Cphone`,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+  });
+
+  const data = JSON.parse(_data);
+  const _user = {};
+  _user.metadata = {};
+  _user.uid = data.id;
+  _user.cmnd = '';
+  _user.email = null;
+  _user.phoneNumber = null;
+  _user.displayName = data.name;
+  _user.metadata.lastSignInTime = new Date();
+  _user.metadata.creationTime = new Date();
+
+  afterConnect('zalo', _user);
+}
+
+async function zaloRedirect() {
+  zaloObject.uid = getUrlQueryString('uid');
+  zaloObject.code = getUrlQueryString('code');
+
+  if (zaloObject.code) {
+    setCookie('fzalo', zaloObject.code);
+    const _z = await ajaxRequest({
+      method: 'GET',
+      url: `https://cors-anywhere.herokuapp.com/https://oauth.zaloapp.com/v3/access_token?app_id=${zaloConfig.appId}&app_secret=${zaloConfig.s}&code=${zaloObject.code}`,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+    });
+    const z = JSON.parse(_z);
+    setCookie('fzaloaccess', z.access_token);
+    zaloRequestData(z.access_token, zaloObject.uid);
+  }
+}
+
 
 app.ready(() => {
   const lazies = new LazyLoad({
@@ -297,7 +388,7 @@ app.ready(() => {
       const object = {};
       object.phone = formSignIn.phone.value.trim();
       object.password = CryptoJS.AES.encrypt(formSignIn.password.value.trim(), CryptoJS.enc.Utf8.parse('ficoximang2020'), { iv: CryptoJS.enc.Base64.parse('ficoximang2020') }).toString();
-     
+
       appLoading(document.body, true);
       firebaseFico.signInPhone(object, (res) => {
         if (res[0]) {
@@ -348,6 +439,7 @@ app.ready(() => {
 
   const btnFB = convertNodeListToArray(document.querySelectorAll('.btn-facebook'));
   const btnG = convertNodeListToArray(document.querySelectorAll('.btn-google'));
+  const btnZ = convertNodeListToArray(document.querySelectorAll('.btn-zalo'));
 
   btnFB.map((x) => {
     x.addEventListener('click', (e) => {
@@ -377,6 +469,15 @@ app.ready(() => {
     return x;
   });
 
+  btnZ.map((x) => {
+    x.addEventListener('click', (e) => {
+      e.preventDefault();
+      appLoading(document.body, true);
+      window.location.href = `https://oauth.zaloapp.com/v3/permission?app_id=${zaloConfig.appId}&redirect_uri=${encodeURI(zaloConfig.redirectURL)}&state=zalo`;
+    });
+    return x;
+  });
+
   return app;
 });
 
@@ -385,13 +486,28 @@ app.load(() => {
     selector: '.content-faq .content__body',
   });
 
-  const _sPolicy = new THPScroll({
-    selector: '.content-policy .content__body',
-    height: app.Site.viewport === 0 ? '250' : (contentBanner.offsetHeight - contentPolicy.querySelector('.content__heading').offsetHeight - 100).toString(),
+  const _mainBanner = new LazyLoad({
+    selector: '#needTrigger',
+    type: 'delay',
+    delay: 1000,
+    events: {
+      afterLoad() {
+        const _sPolicy = new THPScroll({
+          selector: '.content-policy .content__body',
+          height: app.Site.viewport === 0 ? '250' : (contentBanner.offsetHeight - contentPolicy.querySelector('.content__heading').offsetHeight - 100).toString(),
+        });
+
+        [app.scrollPolicy] = _sPolicy;
+      },
+    },
   });
 
   [app.scrollFAQ] = _sFAQ;
-  [app.scrollPolicy] = _sPolicy;
+  [app.mainBanner] = _mainBanner;
+
+  const _isZaloRedirect = getUrlQueryString('state') === 'zalo';
+
+  if (_isZaloRedirect) zaloRedirect();
 });
 
 app.resize(() => {

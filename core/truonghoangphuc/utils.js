@@ -57,7 +57,7 @@ class Utils {
   }
 
   static getUrlQueryString(name, str) {
-    const _name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    const _name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
     const regex = new RegExp(`[\\?&]${_name}=([^&#]*)`);
     const results = regex.exec(str || window.location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));

@@ -1,5 +1,5 @@
 import './thp_lazy.scss';
-import { convertNodeListToArray } from '../../utils';
+import { getSelectors } from '../../utils';
 
 // let observer;
 function _fetchImage(url) {
@@ -52,19 +52,17 @@ function _initLazyImage(els, options) {
   }
 
   if (els.setting.type === 'delay') {
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        els.instances.map(x => _loadImage(x.elements.el));
-      }, els.setting.delay);
-    });
+    setTimeout(() => {
+      els.instances.map(x => _loadImage(x.elements.el));
+    }, els.setting.delay);
   }
 }
 
 class ThpLazyElement {
   /**
    * Class constructor
-   * @param {Object} setting setting for new instance plugin.
-   * @param {String=} setting.selector The css selector query to get DOM elements will apply this plugin.
+   * @param {Object} setting for new instance plugin.
+   * @param {String=} setting.selector The css selector query to get DOM elements/ DOM  will apply this plugin.
    * @param {Object=} setting.events Define callbacks for events.
    * @param {Function=} setting.events.afterLoad Callback will fire when 1 instance installed
   */
@@ -92,14 +90,15 @@ class ThpLazyElement {
 
   init(setting) {
     const $this = this;
-    const els = convertNodeListToArray(document.querySelectorAll(setting.selector));
+    const els = getSelectors(setting.selector);
 
     els.map((x) => {
       const obj = {};
       // redefine setting for each instance here
-      // const s = Object.assign({}, $this.setting, x.dataset || {});
+      const s = Object.assign({}, $this.setting, x.dataset || {});
+      s.delay = parseFloat(s.delay);
 
-      // obj.setting = s;
+      obj.setting = s;
       if (!setting.force) {
         if (!x.classList.contains('monitored')) {
           obj.elements = {
