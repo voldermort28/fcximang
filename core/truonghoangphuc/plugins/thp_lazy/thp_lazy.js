@@ -40,7 +40,12 @@ function _initLazyImage(els, options) {
   els.instances.map(x => x.elements.el.addEventListener('load', () => {
     if (typeof els.setting.events.afterLoad === 'function') els.setting.events.afterLoad(x);
   }));
-  if ('IntersectionObserver' in window) {
+
+  if (els.setting.type === 'delay') {
+    setTimeout(() => {
+      els.instances.map(x => _loadImage(x.elements.el));
+    }, els.setting.delay);
+  } else if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(handleIntersection, options);
     els.instances.map((x) => {
       observer.observe(x.elements.el);
@@ -49,12 +54,6 @@ function _initLazyImage(els, options) {
     });
   } else {
     els.instances.map(x => _loadImage(x.elements.el));
-  }
-
-  if (els.setting.type === 'delay') {
-    setTimeout(() => {
-      els.instances.map(x => _loadImage(x.elements.el));
-    }, els.setting.delay);
   }
 }
 

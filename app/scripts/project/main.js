@@ -435,6 +435,8 @@ app.ready(() => {
   app.lazies = lazies;
   app.signUp = modalSignUp;
   app.signIn = modalSignIn;
+  app.scrollPolicy = {};
+
   firebaseFico.init();
 
   const btnFB = convertNodeListToArray(document.querySelectorAll('.btn-facebook'));
@@ -446,9 +448,13 @@ app.ready(() => {
       e.preventDefault();
       appLoading(document.body, true);
       firebaseFico.signInPopup('facebook', (res) => {
-        // console.log(res);
-        if (res.user !== null) {
+        console.log(res);
+        if (res.user) {
           afterConnect('facebook', res.user);
+          appLoading(document.body, false);
+        } else if (res.message) {
+          alert(res.message);
+          appLoading(document.body, false);
         }
       });
     });
@@ -460,9 +466,12 @@ app.ready(() => {
       e.preventDefault();
       appLoading(document.body, true);
       firebaseFico.signInPopup('google', (res) => {
-        console.log(res.user);
-        if (res.user !== null) {
+        if (res.user) {
           afterConnect('google', res.user);
+          appLoading(document.body, true);
+        } else if (res.message) {
+          alert(res.message);
+          appLoading(document.body, false);
         }
       });
     });
@@ -489,7 +498,7 @@ app.load(() => {
   const _mainBanner = new LazyLoad({
     selector: '#needTrigger',
     type: 'delay',
-    delay: 1000,
+    delay: 300,
     events: {
       afterLoad() {
         const _sPolicy = new THPScroll({
