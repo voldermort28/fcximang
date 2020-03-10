@@ -9,6 +9,12 @@ import THPValidation from '../../../../core/truonghoangphuc/plugins/thp_validati
 import FirebaseFico from '../widgets/firebase_fico';
 
 const firebaseFico = new FirebaseFico();
+let districtData = [];
+let city;
+let district;
+let form;
+let btnBill;
+let btnLucky;
 
 async function loadCities(cb) {
   try {
@@ -23,11 +29,11 @@ async function loadCities(cb) {
 
 async function loadDistrict(cb) {
   try {
-    const district = await ajaxRequest({
+    const districies = await ajaxRequest({
       url: './data/vietnam_districts.json',
     });
 
-    cb(district);
+    cb(districies);
   } catch (error) {
     console.log(error);
   }
@@ -66,15 +72,9 @@ function addBill(object) {
       //     window.location.href = '/info.html';
       //   }
       // });
-      firebaseFico.getMaxLucky((n) => {
-        app.user.lucky = n === 0 ? 1001 : (n + 1);
 
-        firebaseFico.updateUser(app.user, () => {
-          setCookie('user', JSON.stringify(app.user), 30);
-          window.appLoading(document.body, false);
-          window.location.href = '/info.html';
-        });
-      });
+      btnLucky.removeAttribute('disabled');
+      window.appLoading(document.body, false);
     });
   } else if (!isNaN(object.total) && object.total > 0) {
     window.appLoading(document.body, true);
@@ -86,19 +86,23 @@ function addBill(object) {
   }
 }
 
-let districtData = [];
-let city;
-let district;
-let form;
-let btnBill;
 app.ready(() => {
   city = document.querySelector('select#city');
   district = document.querySelector('select#district');
+  form = document.querySelector('.form-bill');
+  btnBill = document.querySelector('#btnBill');
+  btnLucky = document.querySelector('#btnLucky');
 
   if (app.user === undefined) {
     app.user = getCookie('user');
-    if (app.user === '') app.user = JSON.parse(app.user);
-  }
+    if (app.user !== '') {
+      app.user = JSON.parse(app.user);
+      if (app.user.lucky > 1000) window.location.href = '/info.html';
+    } else {
+      window.location.href = '/';
+    }
+  } else if (app.user.lucky > 1000) window.location.href = '/info.html';
+
 
   city.addEventListener('change', (e) => {
     e.preventDefault();
@@ -130,7 +134,7 @@ app.ready(() => {
         if (res1.length) {
           res1.map((x) => {
             if (x.total >= 200) {
-              window.location.href = '/info.html';
+              if (app.user.lucky > 1000) window.location.href = '/info.html';
             }
             return x;
           });
@@ -145,6 +149,9 @@ app.ready(() => {
             document.querySelector('[name="street"]').value = auto.street;
             document.querySelector('[name="shop"]').value = auto.shop;
             document.querySelector('[name="shopphone"]').value = auto.shopphone;
+            document.querySelector('[name="total"]').value = auto.total;
+
+            if (app.user.lucky < 1000) btnLucky.removeAttribute('disabled');
           }
         }
         window.appLoading(document.body, false);
@@ -161,8 +168,6 @@ app.ready(() => {
     }
   });
 
-  form = document.querySelector('.form-bill');
-  btnBill = document.querySelector('#btnBill');
 
   const _v = new THPValidation({
     selector: 'form',
@@ -191,5 +196,19 @@ app.ready(() => {
       addBill(object);
     });
     return false;
+  });
+
+  btnLucky.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    firebaseFico.getMaxLucky((n) => {
+      app.user.lucky = n === 0 ? 1001 : (n + 1);
+
+      firebaseFico.updateUser(app.user, () => {
+        setCookie('user', JSON.stringify(app.user), 30);
+        window.appLoading(document.body, false);
+        window.location.href = '/info.html';
+      });
+    });
   });
 });
