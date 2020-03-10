@@ -73,6 +73,20 @@ window.appLoading = (el, isLoading) => {
   if (!isLoading) el.classList.remove('loading');
 };
 
+function hideUNNeedFields(user) {
+  if (user) {
+    formSignUp.password.parentElement.classList.add('d-none');
+    formSignUp.verifypassword.parentElement.classList.add('d-none');
+    formSignUp.socials.map((x) => {
+      x.parentElement.classList.add('d-none');
+      return x;
+    });
+    formSignUp.fullname.value = user.fullname;
+    if (user.cmnd) formSignUp.cmnd.value = user.cmnd;
+    if (user.phone) formSignUp.phone.value = user.phone;
+  }
+}
+
 function addUser(provider, data) {
   const user = {};
   user.cmnd = '';
@@ -90,6 +104,7 @@ function addUser(provider, data) {
       if (app.user.cmnd === '' || app.user.cmnd === null || app.user.phone === '' || app.user.phone === null) {
         app.signIn.close();
         app.signUp.open();
+        hideUNNeedFields(app.user);
         appLoading(document.body, false);
       }
     } else {
@@ -115,7 +130,7 @@ function afterConnect(provider, data) {
     });
   } else if (data.email !== null && data.email !== '') {
     firebaseFico.getUser('email', data.email, (res2) => {
-      // console.log(res2);
+      console.log(res2);
       if (res2.length === 0) {
         addUser(provider, data);
       } else {
@@ -132,6 +147,7 @@ function afterConnect(provider, data) {
         if (app.user.cmnd === '' || app.user.cmnd === null || app.user.phone === '' || app.user.phone === null) {
           app.signIn.close();
           app.signUp.open();
+          hideUNNeedFields(app.user);
           appLoading(document.body, false);
         } else if (app.user.lucky === 0) {
           callBillInfo(app.user);
@@ -159,6 +175,7 @@ function afterConnect(provider, data) {
         if (app.user.cmnd === '' || app.user.cmnd === null || app.user.phone === '' || app.user.phone === null) {
           app.signIn.close();
           app.signUp.open();
+          hideUNNeedFields(app.user);
           appLoading(document.body, false);
         } else if (app.user.lucky === 0) {
           callBillInfo(app.user);
@@ -403,17 +420,7 @@ app.ready(() => {
     events: {
       beforeOpen() {
         menuMain[0].close();
-        if (app.user) {
-          formSignUp.password.parentElement.classList.add('d-none');
-          formSignUp.verifypassword.parentElement.classList.add('d-none');
-          formSignUp.socials.map((x) => {
-            x.parentElement.classList.add('d-none');
-            return x;
-          });
-          formSignUp.fullname.value = app.user.fullname;
-          if (app.user.cmnd) formSignUp.cmnd.value = app.user.cmnd;
-          if (app.user.phone) formSignUp.phone.value = app.user.phone;
-        }
+        hideUNNeedFields(app.user);
       },
     },
   });

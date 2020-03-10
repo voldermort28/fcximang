@@ -132,14 +132,16 @@ app.ready(() => {
       window.appLoading(document.body, true);
       firebaseFico.getBills(app.user, (res1) => {
         if (res1.length) {
-          res1.map((x) => {
+          let _is200 = -1;
+          res1.map((x, index) => {
             if (x.total >= 200) {
+              _is200 = index;
               if (app.user.lucky > 1000) window.location.href = '/info.html';
             }
             return x;
           });
 
-          const auto = res1[res1.length - 1];
+          const auto = res1[_is200 > -1 ? _is200 : res1.length - 1];
 
           if (auto.city) {
             city.value = auto.city;
@@ -151,7 +153,7 @@ app.ready(() => {
             document.querySelector('[name="shopphone"]').value = auto.shopphone;
             document.querySelector('[name="total"]').value = auto.total;
 
-            if (app.user.lucky < 1000) btnLucky.removeAttribute('disabled');
+            if (app.user.lucky < 1000 && _is200 !== -1) btnLucky.removeAttribute('disabled');
           }
         }
         window.appLoading(document.body, false);
@@ -201,6 +203,7 @@ app.ready(() => {
   btnLucky.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
+    window.appLoading(document.body, true);
     firebaseFico.getMaxLucky((n) => {
       app.user.lucky = n === 0 ? 1001 : (n + 1);
 
