@@ -88,7 +88,9 @@ function addUser(provider, data) {
       user.id = res.id;
       app.user = user;
       if (app.user.cmnd === '' || app.user.cmnd === null || app.user.phone === '' || app.user.phone === null) {
+        app.signIn.close();
         app.signUp.open();
+        appLoading(document.body, false);
       }
     } else {
       window.appLoading(document.body, false);
@@ -128,6 +130,7 @@ function afterConnect(provider, data) {
         user.lucky = res2[0].lucky;
         app.user = user;
         if (app.user.cmnd === '' || app.user.cmnd === null || app.user.phone === '' || app.user.phone === null) {
+          app.signIn.close();
           app.signUp.open();
           appLoading(document.body, false);
         } else if (app.user.lucky === 0) {
@@ -154,6 +157,7 @@ function afterConnect(provider, data) {
         user.lucky = res3[0].lucky;
         app.user = user;
         if (app.user.cmnd === '' || app.user.cmnd === null || app.user.phone === '' || app.user.phone === null) {
+          app.signIn.close();
           app.signUp.open();
           appLoading(document.body, false);
         } else if (app.user.lucky === 0) {
@@ -399,8 +403,6 @@ app.ready(() => {
     events: {
       beforeOpen() {
         menuMain[0].close();
-      },
-      afterOpen() {
         if (app.user) {
           formSignUp.password.parentElement.classList.add('d-none');
           formSignUp.verifypassword.parentElement.classList.add('d-none');
@@ -420,6 +422,7 @@ app.ready(() => {
     selector: '[data-thp-modal="#modalSignIn"]',
     type: 'inner',
     target: '#modalSignIn',
+    close: true,
     events: {
       beforeOpen() {
         menuMain[0].close();
@@ -461,7 +464,7 @@ app.ready(() => {
         console.log(res);
         if (res.user) {
           afterConnect('facebook', res.user);
-          appLoading(document.body, false);
+          // appLoading(document.body, false);
         } else if (res.message) {
           alert(res.message);
           appLoading(document.body, false);
@@ -477,9 +480,10 @@ app.ready(() => {
       e.preventDefault();
       appLoading(document.body, true);
       firebaseFico.signInPopup('google', (res) => {
+        // console.log(res);
         if (res.user) {
           afterConnect('google', res.user);
-          appLoading(document.body, true);
+          // appLoading(document.body, false);
         } else if (res.message) {
           alert(res.message);
           appLoading(document.body, false);

@@ -57,6 +57,11 @@
     padding: 20px;
     background: url('../images/upload/modal_bg_1.png') center bottom no-repeat scroll transparent;
 
+    label {
+      color: $white;
+      text-shadow: 1px 1px 0 #000;
+    }
+
     .btn {
       
       .fa {
