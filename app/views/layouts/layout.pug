@@ -78,3 +78,11 @@ html.no-js.thp-site(lang='en')
       script.
         const mode = 'development';
         const templatePath = './particle/';
+    // Global site tag (gtag.js) - Google Analytics
+    script(async='' src='https://www.googletagmanager.com/gtag/js?id=UA-160174738-1')
+    script.
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-160174738-1');
+    // End - Google Analytics
