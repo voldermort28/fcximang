@@ -412,11 +412,24 @@ app.ready(() => {
     },
   });
 
+  const [modalAlert] = new THPModal({
+    selector: '[data-thp-modal="#modalBox"]',
+    type: 'inner',
+    target: '#modalBox',
+  });
+
   app.menu = menuMain;
   app.lazies = lazies;
   app.signUp = modalSignUp;
   app.signIn = modalSignIn;
   app.scrollPolicy = {};
+  app.alert = modalAlert;
+  app.alert.elements.message = document.querySelector('#modalBox').querySelector('#message');
+
+  document.querySelector('#closeAlert').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelector('#modalBox').click();
+  });
 
   firebaseFico.init();
 

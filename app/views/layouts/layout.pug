@@ -59,10 +59,14 @@ html.no-js.thp-site(lang='en')
         });
       };
     script(async, defer, src='https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js')
+    a.skip-link.screen-reader-text(href="#main") Skip to content
     include ../global/header.pug
-    block container
+    #main
+      block container
     include  ../block/modal_signin.pug
     include  ../block/modal_signup.pug
+    include  ../block/modal_box.pug
+    a(data-thp-modal='#modalBox',title='alert')
     include ../global/footer.pug
     .fb-customerchat(page_id='391946698263195')
     script(src='https://zjs.zdn.vn/zalo/sdk.js')

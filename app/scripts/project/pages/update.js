@@ -79,7 +79,8 @@ function addBill(object) {
     window.appLoading(document.body, true);
     firebaseFico.addBill(object, () => {
       window.appLoading(document.body, false);
-      alert('Cảm ơn bạn đã tham gia chương trình.\nĐáng tiếc bạn chưa đủ 200 bao xi măng để nhận mã rút thăm,\nvui lòng mua đủ và quay lại tiếp tục tham gia');
+      app.alert.elements.message.innerHTML = '<h4>Cảm ơn bạn đã tham gia chương trình.</h4><p>Đáng tiếc bạn chưa đủ 200 bao xi măng để nhận mã rút thăm, vui lòng mua đủ và quay lại tiếp tục tham gia</p>';
+      app.alert.open();
     });
   }
 }
