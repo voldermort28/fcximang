@@ -177,6 +177,7 @@ async function zaloRequestData(code) {
   _user.metadata.creationTime = new Date();
 
   afterConnect('zalo', _user);
+  appLoading(document.body, false);
 }
 
 async function zaloRedirect() {
@@ -510,7 +511,10 @@ app.load(() => {
 
   const _isZaloRedirect = getUrlQueryString('state') === 'zalo';
 
-  if (_isZaloRedirect) zaloRedirect();
+  if (_isZaloRedirect) {
+    appLoading(document.body, true);
+    zaloRedirect();
+  }
 });
 
 app.resize(() => {
