@@ -49,13 +49,18 @@ function callPageInfo(user) {
 
 function callBillInfo(user) {
   firebaseFico.getBills(user, (res) => {
-    let total = 0;
-    res.map((x) => {
-      total += x.total;
-      return total;
-    });
-    if (total >= 200) {
-      callPageInfo(iser);
+    let totalN = 0;
+    if (res.length) {
+      res.map((x) => {
+        if (totalN < x.total) totalN = x.total;
+        return x;
+      });
+      if (totalN >= 200) {
+        callPageInfo(iser);
+      } else {
+        setCookie('user', JSON.stringify(user), 30);
+        window.location.href = '/update.html';
+      }
     } else {
       setCookie('user', JSON.stringify(user), 30);
       window.location.href = '/update.html';
@@ -85,6 +90,10 @@ function addUser(provider, data) {
       if (app.user.cmnd === '' || app.user.cmnd === null || app.user.phone === '' || app.user.phone === null) {
         app.signUp.open();
       }
+    } else {
+      window.appLoading(document.body, false);
+      app.alert.elements.message.innerHTML = '<p>There is an error!!! Please try again later</p>';
+      app.alert.open();
     }
   });
 }
@@ -130,6 +139,7 @@ function afterConnect(provider, data) {
     });
   } else {
     firebaseFico.getUser('zalo', data.uid, (res3) => {
+      console.log(res3);
       if (res3.length === 0) {
         addUser(provider, data);
       } else {
@@ -307,11 +317,13 @@ app.ready(() => {
                 appLoading(document.body, false);
                 return alert('Đã có tài khoản sử dụng CMND này');
               }
+              return true;
             });
           } else {
             appLoading(document.body, false);
             return alert('Đã có tài khoản sử dụng số điện thoai này');
           }
+          return true;
         });
       }
     } else {
@@ -373,6 +385,8 @@ app.ready(() => {
             appLoading(document.body, false);
             callBillInfo(app.user);
           });
+        } else {
+          appLoading(document.body, false);
         }
       });
     }
@@ -438,6 +452,7 @@ app.ready(() => {
   const btnG = convertNodeListToArray(document.querySelectorAll('.btn-google'));
   const btnZ = convertNodeListToArray(document.querySelectorAll('.btn-zalo'));
 
+  // Facebook
   btnFB.map((x) => {
     x.addEventListener('click', (e) => {
       e.preventDefault();
@@ -456,6 +471,7 @@ app.ready(() => {
     return x;
   });
 
+  // Google
   btnG.map((x) => {
     x.addEventListener('click', (e) => {
       e.preventDefault();
@@ -473,6 +489,7 @@ app.ready(() => {
     return x;
   });
 
+  // Zalo
   btnZ.map((x) => {
     x.addEventListener('click', (e) => {
       e.preventDefault();

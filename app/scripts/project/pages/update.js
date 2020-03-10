@@ -42,6 +42,7 @@ async function checkIP() {
     return txt.split('\n').join('|');
   } catch (error) {
     console.log(error);
+    return '';
   }
 }
 
