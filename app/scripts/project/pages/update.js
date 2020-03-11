@@ -15,6 +15,7 @@ let district;
 let form;
 let btnBill;
 let btnLucky;
+let isLucky = false;
 
 async function loadCities(cb) {
   try {
@@ -73,7 +74,7 @@ function addBill(object) {
       //   }
       // });
 
-      btnLucky.removeAttribute('disabled');
+      if (!isLucky) btnLucky.removeAttribute('disabled');
       window.appLoading(document.body, false);
     });
   } else if (!isNaN(object.total) && object.total > 0) {
@@ -97,11 +98,13 @@ app.ready(() => {
     app.user = getCookie('user');
     if (app.user !== '') {
       app.user = JSON.parse(app.user);
-      if (app.user.lucky > 1000) window.location.href = '/info.html';
+      if (app.user.lucky > 1000) isLucky = true;
+      // window.location.href = '/info.html';
     } else {
       window.location.href = '/';
     }
-  } else if (app.user.lucky > 1000) window.location.href = '/info.html';
+  } else if (app.user.lucky > 1000) isLucky = true;
+  // window.location.href = '/info.html';
 
 
   city.addEventListener('change', (e) => {
