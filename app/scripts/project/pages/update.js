@@ -139,7 +139,8 @@ app.ready(() => {
           res1.map((x, index) => {
             if (x.total >= 200) {
               _is200 = index;
-              if (app.user.lucky > 1000) window.location.href = '/info.html';
+              if (app.user.lucky > 1000) isLucky = true;
+              // window.location.href = '/info.html';
             }
             return x;
           });
