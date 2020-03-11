@@ -41,6 +41,7 @@ const zaloConfig = {
   redirectURL: mode === 'development' ? 'https://thp.test:3200/' : 'https://mienphiximang.fico-ytl.com/',
 };
 const zaloObject = {};
+let linkLucky;
 
 function callPageInfo(user) {
   setCookie('user', JSON.stringify(user), 30);
@@ -257,6 +258,7 @@ app.ready(() => {
     },
   });
 
+  linkLucky = document.querySelector('#linkLucky');
   if (app.user === undefined) {
     app.user = getCookie('user');
     if (app.user !== '') {
@@ -270,6 +272,11 @@ app.ready(() => {
         x.classList.remove('d-none');
         return x;
       });
+
+      if (app.user.lucky <= 1000 && linkLucky !== null) {
+        linkLucky.href = 'update.html';
+        linkLucky.innerText = 'Cập nhật thông tin mua hàng';
+      }
     }
   }
 
