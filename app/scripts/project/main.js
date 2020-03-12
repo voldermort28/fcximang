@@ -374,7 +374,10 @@ app.ready(() => {
                   if (res3.id) {
                     object.id = res3.id;
                     app.user = object;
-                    callBillInfo(app.user);
+                    firebaseFico.updateUser(app.user, () => {
+                      // console.log('....');
+                      callBillInfo(app.user);
+                    });
                   }
                 });
               } else {
