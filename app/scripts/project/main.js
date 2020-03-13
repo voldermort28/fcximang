@@ -49,6 +49,7 @@ function callPageInfo(user) {
 }
 
 function callBillInfo(user) {
+  if (user.lucky > 1000) callPageInfo(user);
   firebaseFico.getBills(user, (res) => {
     let totalN = 0;
     if (res.length) {
