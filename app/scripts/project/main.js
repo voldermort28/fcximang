@@ -189,7 +189,7 @@ function afterConnect(provider, data) {
   }
 }
 
-async function zaloRequestData(code) {
+async function zaloRequestData(code, uid) {
   const _data = await ajaxRequest({
     method: 'GET',
     url: `https://cors-anywhere.herokuapp.com/https://graph.zalo.me/v2.0/me?access_token=${code}&fields=id%2Cname%2Cphone`,
@@ -201,7 +201,7 @@ async function zaloRequestData(code) {
   const data = JSON.parse(_data);
   const _user = {};
   _user.metadata = {};
-  _user.uid = data.id;
+  _user.uid = uid;
   _user.cmnd = '';
   _user.email = null;
   _user.phoneNumber = null;
