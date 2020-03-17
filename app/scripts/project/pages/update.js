@@ -74,7 +74,11 @@ function addBill(object) {
       //   }
       // });
 
-      if (!isLucky) btnLucky.click();// btnLucky.removeAttribute('disabled');
+      if (!isLucky) {
+        btnLucky.click();// btnLucky.removeAttribute('disabled');
+      } else {
+        window.location.href = '/info.html';
+      }
       window.appLoading(document.body, false);
     });
   } else if (!isNaN(object.total) && object.total > 0) {
