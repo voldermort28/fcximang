@@ -61,10 +61,12 @@ function callBillInfo(user) {
         callPageInfo(iser);
       } else {
         setCookie('user', JSON.stringify(user), 30);
+        // ga('send', 'event', 'detail purchase', 'update', 'after', 'after');
         window.location.href = '/update.html';
       }
     } else {
       setCookie('user', JSON.stringify(user), 30);
+      // ga('send', 'event', 'detail purchase', 'update', 'after', 'after');
       window.location.href = '/update.html';
     }
   });
@@ -277,6 +279,9 @@ app.ready(() => {
       if (app.user.lucky <= 1000 && linkLucky !== null) {
         linkLucky.href = 'update.html';
         linkLucky.innerText = 'Cập nhật thông tin mua hàng';
+        linkLucky.click = () => {
+          ga('send', 'event', 'detail purchase', 'update', 'before', 'before');
+        };
       }
     }
   }

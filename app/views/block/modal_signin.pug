@@ -13,17 +13,17 @@
             sup *
           input.input-password.form-control(type="password", placeholder="Mật khẩu", required, data-error-require="Bắt buộc")
         .form-group.form-cmd
-          button#btnSignIn.btn.btn-secondary(title='Đăng nhập') Đăng nhập
+          button#btnSignIn.btn.btn-secondary(title='Đăng nhập',onclick="ga('send', 'event', 'registration', 'signin', 'general', 'Đăng nhập');") Đăng nhập
           hr
         .form-group.form-cmd
-          button.btn.btn-ico--text.btn-facebook(title='Đăng nhập với Facebook')
+          button.btn.btn-ico--text.btn-facebook(title='Đăng nhập với Facebook',onclick="ga('send', 'event', 'registration', 'signin', 'facebook', 'Đăng nhập');")
             span.fa.fa-facebook
             span Đăng nhập với Facebook
         .form-group.form-cmd
-          button.btn.btn-ico--text.btn-google(title='Đăng nhập với Google')
+          button.btn.btn-ico--text.btn-google(title='Đăng nhập với Google',onclick="ga('send', 'event', 'registration', 'signin', 'google', 'Đăng nhập');")
             span.fa.fa-google
             span Đăng nhập với Google
         .form-group.form-cmd
-          button.btn.btn-ico--text.btn-zalo(title='Đăng nhập với Zalo')
+          button.btn.btn-ico--text.btn-zalo(title='Đăng nhập với Zalo',onclick="ga('send', 'event', 'registration', 'signin', 'zalo', 'Đăng nhập');")
             span.fa.fa-zalo
             span Đăng nhập với Zalo

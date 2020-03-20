@@ -6,7 +6,7 @@ block vars
   - description = "Fico YTL - Miễn phí xi măng, xây nhà bền chắc";
   - menuIndex = 0
 
-block container
+block container  
   h1.invisible-title Fico YTL - Miễn phí xi măng, xây nhà bền chắc
   .container
     .top-banner
@@ -49,7 +49,7 @@ block container
           label &nbsp;
           .form-control
             button#btnLucky.btn.btn-primary.d-none(type='button') Nhận mã may mắn
-            button#btnBill.btn.btn-primary(type='submit') Nhận mã may mắn
+            button#btnBill.btn.btn-primary(type='submit',onclick="ga('send', 'event', 'submission for drawing', 'submit', 'subpage', 'Nhận mã may mắn');") Nhận mã may mắn
   .container
     .video-streaming
       .d-md-flex.justify-content-between.align-content-center
