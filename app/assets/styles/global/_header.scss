@@ -153,6 +153,20 @@
 
 }
 
+.mobile-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  a {
+    color: $white;
+    font-size: rem(13px);
+  }
+}
+
 .ios {
 
   header {

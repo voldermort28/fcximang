@@ -4,6 +4,13 @@ header#header
     .header__top.d-flex.align-items-center.justify-content-between
       +link('Fico YTL\'s logo', 'index.html', 'Fico YTL\'s logo').header__logo
         +img('Fico YTL\'s logo', require('../../assets/images/logo.png'))
+      ul.d-flex.d-lg-none.mobile-links
+        li.nav-main__item.none-logged
+          a(href='#modalSignUp',data-thp-modal='#modalSignUp', title='Đăng ký') Đăng ký
+          | &nbsp;|&nbsp;
+          a(href='#modalSignIn',data-thp-modal='#modalSignIn',title='Đăng nhập') Đăng nhập
+        li.nav-main__item.logged.d-none
+          a.logout.nav-main__link(href='#',title='Thoát') Thoát
       a.hamburger-menu(data-thp-dropdown,data-target='#menuWrapper',href='javascript:void(0);',title='Menu')
         span
         span
