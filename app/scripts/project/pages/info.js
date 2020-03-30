@@ -14,7 +14,7 @@ async function renderInfo(_template, _jsonData) {
 app.ready(() => {
   if (app.user === undefined) {
     app.user = getCookie('user');
-    app.user = JSON.parse(app.user);
+    app.user = JSON.parse(unescape(app.user));
   }
 
   if (app.user) {

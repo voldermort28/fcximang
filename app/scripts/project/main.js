@@ -44,7 +44,7 @@ const zaloObject = {};
 let linkLucky;
 
 function callPageInfo(user) {
-  setCookie('user', JSON.stringify(user), 30);
+  setCookie('user', escape(JSON.stringify(user)), 30);
   window.location.href = '/info.html';
 }
 
@@ -60,12 +60,12 @@ function callBillInfo(user) {
       if (totalN >= 200) {
         callPageInfo(iser);
       } else {
-        setCookie('user', JSON.stringify(user), 30);
+        setCookie('user', escape(JSON.stringify(user)), 30);
         // ga('send', 'event', 'detail purchase', 'update', 'after', 'after');
         window.location.href = '/update.html';
       }
     } else {
-      setCookie('user', JSON.stringify(user), 30);
+      setCookie('user', escape(JSON.stringify(user)), 30);
       // ga('send', 'event', 'detail purchase', 'update', 'after', 'after');
       window.location.href = '/update.html';
     }
@@ -220,7 +220,7 @@ async function zaloRedirect() {
   zaloObject.code = getUrlQueryString('code');
 
   if (zaloObject.code) {
-    setCookie('fzalo', zaloObject.code);
+    setCookie('fzalo', escape(zaloObject.code));
     const _z = await ajaxRequest({
       method: 'GET',
       url: `https://cors-anywhere.herokuapp.com/https://oauth.zaloapp.com/v3/access_token?app_id=${zaloConfig.appId}&app_secret=${zaloConfig.s}&code=${zaloObject.code}`,
@@ -229,7 +229,7 @@ async function zaloRedirect() {
       },
     });
     const z = JSON.parse(_z);
-    setCookie('fzaloaccess', z.access_token);
+    setCookie('fzaloaccess', escape(z.access_token));
     zaloRequestData(z.access_token, zaloObject.uid);
   }
 }
@@ -265,7 +265,7 @@ app.ready(() => {
   if (app.user === undefined) {
     app.user = getCookie('user');
     if (app.user !== '') {
-      app.user = JSON.parse(app.user);
+      app.user = JSON.parse(unescape(app.user));
       convertNodeListToArray(document.querySelectorAll('.none-logged')).map((x) => {
         x.classList.add('d-none');
         return x;

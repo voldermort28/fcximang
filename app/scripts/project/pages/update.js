@@ -101,7 +101,7 @@ app.ready(() => {
   if (app.user === undefined) {
     app.user = getCookie('user');
     if (app.user !== '') {
-      app.user = JSON.parse(app.user);
+      app.user = JSON.parse(unescape(app.user));
       if (app.user.lucky > 1000) isLucky = true;
       // window.location.href = '/info.html';
     } else {
