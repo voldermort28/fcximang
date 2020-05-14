@@ -213,7 +213,7 @@ app.ready(() => {
     e.stopPropagation();
     window.appLoading(document.body, true);
     firebaseFico.getMaxLucky((n) => {
-      app.user.lucky = n === 0 ? 1001 : (n + 1);
+      app.user.lucky = n === 0 ? 1300 : (n + 1);
 
       firebaseFico.updateUser(app.user, () => {
         setCookie('user', JSON.stringify(app.user), 30);
