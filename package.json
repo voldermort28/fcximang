@@ -58,7 +58,7 @@
     "crypto-js": "^4.0.0",
     "firebase": "^7.14.0",
     "hammerjs": "^2.0.8",
-    "handlebars": "^4.7.6",
+    "handlebars": "^4.7.7",
     "regenerator-runtime": "^0.13.3",
     "smoothscroll-polyfill": "^0.4.4",
     "ua-parser-js": "^0.7.20"
